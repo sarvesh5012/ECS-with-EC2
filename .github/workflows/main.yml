@@ -34,11 +34,11 @@ jobs:
           aws-region: ap-southeast-1  # Replace with your AWS region
 
       # Step 4: Initialize Terraform
-      - name: Terraform Init
+      #- name: Terraform Init
         # run: terraform init
 
       # Step 5: Plan Terraform changes
-      - name: Terraform Plan
+      #- name: Terraform Plan
         # run: terraform plan
 
       # Step 6: Apply Terraform changes (requires manual approval for safety)
