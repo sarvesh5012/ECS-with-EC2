@@ -35,13 +35,13 @@ jobs:
 
       # Step 4: Initialize Terraform
       - name: Terraform Init
-        run: terraform init
+        # run: terraform init
 
       # Step 5: Plan Terraform changes
       - name: Terraform Plan
-        run: terraform plan
+        # run: terraform plan
 
       # Step 6: Apply Terraform changes (requires manual approval for safety)
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'  # Apply only on main branch
-        run: terraform apply -auto-approve
+        run: terraform destroy -auto-approve
