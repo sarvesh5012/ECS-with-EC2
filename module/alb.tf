@@ -37,7 +37,7 @@ resource "aws_alb_listener" "alb_default_listener_https" {
     Scenario = var.scenario
   }
 
-  depends_on = [aws_acm_certificate.alb_certificate]
+  # depends_on = [aws_acm_certificate.alb_certificate]
 }
 
 ########################################################################################################################
