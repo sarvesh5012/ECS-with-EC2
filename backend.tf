@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "test-ecs-ec2-infra-bkt"
+    bucket = "dev-ecs-cluster-state-bkt"
     key    = "key/terraform.tfstate"
     region = "ap-southeast-1"
     # profile = "management-forte"
