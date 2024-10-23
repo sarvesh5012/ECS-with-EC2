@@ -2,7 +2,7 @@
 ## Service variables
 ########################################################################################################################
 
-namespace           = "ecs"
+namespace           = "virtue"
 domain_name         = "virtues.agency"
 service_name        = "my-service"
 scenario            = "scenario-ecs-ec2"
