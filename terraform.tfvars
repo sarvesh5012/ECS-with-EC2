@@ -3,7 +3,7 @@
 ########################################################################################################################
 
 namespace           = "ecs"
-domain_name         = "dev.virtues.agency"
+domain_name         = "virtues.agency"
 service_name        = "my-service"
 scenario            = "scenario-ecs-ec2"
 environment         = "dev"
@@ -72,4 +72,4 @@ autoscaling_min_size  = 2
 custom_origin_host_header  = "dev"
 healthcheck_endpoint       = "/"
 healthcheck_matcher        = "200"
-aws_acm_certificate_arn        = "arn:aws:acm:ap-southeast-1:054037095709:certificate/0f526c5e-8742-42d1-8859-b8e1fef9d50a"
+aws_acm_certificate_arn        = "arn:aws:acm:ap-southeast-1:711387124065:certificate/50a1d91f-b79c-4565-8e4f-fd6e0cc8e7b2"
