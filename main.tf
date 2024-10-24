@@ -79,4 +79,7 @@ module "ecs_infrastructure" {
   healthcheck_endpoint      = var.healthcheck_endpoint
   healthcheck_matcher       = var.healthcheck_matcher
   aws_acm_certificate_arn   = var.aws_acm_certificate_arn
+
+
+  launch_type = var.launch_type
 }
