@@ -58,12 +58,7 @@ resource "aws_alb_listener_rule" "https_listener_rule" {
     }
   }
 
-  condition {
-    http_header {
-      http_header_name = "X-Custom-Header"
-      values           = [var.custom_origin_host_header]
-    }
-  }
+  
 
   tags = {
     Scenario = var.scenario
