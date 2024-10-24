@@ -232,3 +232,9 @@ variable "aws_acm_certificate_arn" {
   type = string
 
 }
+
+
+variable "launch_type" {
+  type    = string
+  default = "ec2"  # or "fargate"
+}
