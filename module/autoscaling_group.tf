@@ -3,7 +3,6 @@
 ########################################################################################################################
 
 resource "aws_autoscaling_group" "ecs_autoscaling_group" {
-  count = var.launch_type == "ec2" ? 1 : 0
   name                  = "${var.namespace}_ASG_${var.environment}"
   max_size              = var.autoscaling_max_size
   min_size              = var.autoscaling_min_size

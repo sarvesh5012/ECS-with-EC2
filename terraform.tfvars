@@ -76,4 +76,4 @@ aws_acm_certificate_arn        = "arn:aws:acm:ap-southeast-1:711387124065:certif
 
 
 
-launch_type = "fargate"
+

@@ -77,3 +77,34 @@ resource "aws_security_group_rule" "alb_cloudfront_https_ingress_only" {
   to_port           = 443
   type              = "ingress"
 }
+
+
+## SG for ECS Container Instances
+########################################################################################################################
+
+resource "aws_security_group" "ecs_container_instance" {
+  name        = "${var.namespace}_ECS_Task_SecurityGroup_${var.environment}"
+  description = "Security group for ECS task running on Fargate"
+  vpc_id      = aws_vpc.default.id
+
+  ingress {
+    description     = "Allow ingress traffic from ALB on HTTP only"
+    from_port       = var.container_port
+    to_port         = var.container_port
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb.id]
+  }
+
+  egress {
+    description = "Allow all egress traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name     = "${var.namespace}_ECS_Task_SecurityGroup_${var.environment}"
+    Scenario = var.scenario
+  }
+}

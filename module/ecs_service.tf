@@ -1,6 +1,5 @@
 # EC2 ECS Service
 resource "aws_ecs_service" "service" {
-  count = var.launch_type == "ec2" ? 1 : 0
   name                               = "${var.namespace}_ECS_Service_${var.environment}"
   iam_role                           = aws_iam_role.ecs_service_role.arn
   cluster                            = aws_ecs_cluster.default.id

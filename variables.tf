@@ -220,12 +220,3 @@ variable "aws_acm_certificate_arn" {
 }
 
 
-variable "launch_type" {
-  description = "Specify whether to deploy ECS on EC2 or Fargate"
-  type        = string
-  default     = "fargate" # default to Fargate; change if needed
-  validation {
-    condition     = var.launch_type == "ec2" || var.launch_type == "fargate"
-    error_message = "launch_type must be either 'ec2' or 'fargate'."
-  }
-}

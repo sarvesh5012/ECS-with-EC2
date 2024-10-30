@@ -1,9 +1,8 @@
 # Fargate ECS Service
 resource "aws_ecs_service" "service" {
-  count = var.launch_type == "fargate" ? 1 : 0
   name                               = "${var.namespace}_ECS_Service_${var.environment}"
   cluster                            = aws_ecs_cluster.default.id
-  task_definition                    = aws_ecs_task_definition.default_fargate.arn  # Indexed for Fargate
+  task_definition                    = aws_ecs_task_definition.default.arn  # Indexed for Fargate
   desired_count                      = var.ecs_task_desired_count
   deployment_minimum_healthy_percent = var.ecs_task_deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.ecs_task_deployment_maximum_percent
@@ -30,5 +29,5 @@ resource "aws_ecs_service" "service" {
 
 # Output for Fargate ECS Service
 output "ecs_service_fargate_name" {
-  value = aws_ecs_service.service_fargate.name
+  value = aws_ecs_service.service.name
 }
