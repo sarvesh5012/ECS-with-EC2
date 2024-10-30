@@ -1,0 +1,57 @@
+name: Terraform AWS Deployment
+
+on:
+  # Trigger the workflow on push to the main branch or pull request
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Terraform CLI
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.6  # Use the required Terraform version
+
+      # Step 3: Configure AWS credentials from GitHub Secrets
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-southeast-1  # Replace with your AWS region
+
+      # Step 4: Remove specific Terraform files to ignore them
+      - name: Remove Ignored Files
+        run: |
+          rm -f module/autoscaling_group.tf
+          rm -f module/capacity_providers.tf
+          rm -f module/launch_template.tf
+          rm -f module/ecs_service.tf
+          rm -f module/ecs_task_definition.tf
+          rm -f module/user_data.sh
+
+      # Step 5: Initialize Terraform
+      - name: Terraform Init
+        run: terraform init
+
+      # Step 6: Plan Terraform changes
+      - name: Terraform Plan
+        run: terraform plan
+
+      # Step 7: Apply Terraform changes (requires manual approval for safety)
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'  # Apply only on main branch
+        run: terraform apply -auto-approve
