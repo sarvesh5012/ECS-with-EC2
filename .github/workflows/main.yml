@@ -4,7 +4,7 @@ on:
   # Trigger the workflow on push to the main branch or pull request
   push:
     branches:
-      - dev
+      - main
   pull_request:
     branches:
       - main
@@ -42,6 +42,6 @@ jobs:
         run: terraform plan
 
       # Step 6: Apply Terraform changes (requires manual approval for safety)
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'  # Apply only on main branch
-        run: terraform apply -auto-approve
+      #- name: Terraform Apply
+        #if: github.ref == 'refs/heads/main'  # Apply only on main branch
+        #run: terraform apply -auto-approve
