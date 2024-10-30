@@ -23,7 +23,7 @@ resource "aws_autoscaling_group" "ecs_autoscaling_group" {
   ]
 
   launch_template {
-    id      = aws_launch_template.ecs_launch_template[0].id
+    id      = aws_launch_template.ecs_launch_template.id
     version = "$Latest"
   }
 
