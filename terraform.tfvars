@@ -42,8 +42,8 @@ memory_target_tracking_desired_value           = 80
 maximum_scaling_step_size                      = 5
 minimum_scaling_step_size                      = 1
 target_capacity                                = 100
-container_port                                 = 3000
-cpu_units                                      = 100
+container_port                                 = 80
+cpu_units                                      = 2048
 memory                                         = 256
 
 ########################################################################################################################
