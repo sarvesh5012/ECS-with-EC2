@@ -42,6 +42,7 @@ jobs:
           rm -f module/ecs_service.tf
           rm -f module/ecs_task_definition.tf
           rm -f module/user_data.sh
+          rm -f module/target_group_instance.tf
 
       # Step 5: Initialize Terraform
       - name: Terraform Init
