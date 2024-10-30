@@ -44,7 +44,7 @@ minimum_scaling_step_size                      = 1
 target_capacity                                = 100
 container_port                                 = 80
 cpu_units                                      = 2048
-memory                                         = 256
+memory                                         = 8192
 
 ########################################################################################################################
 ## Cloudwatch
