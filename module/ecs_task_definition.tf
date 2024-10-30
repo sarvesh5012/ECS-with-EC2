@@ -41,7 +41,7 @@ resource "aws_ecs_task_definition" "default" {
 
 # Fargate
 
-resource "aws_ecs_task_definition" "default" {
+resource "aws_ecs_task_definition" "default_fargate" {
   count = var.launch_type == "fargate" ? 1 : 0
   family                   = "${var.namespace}_ECS_TaskDefinition_${var.environment}"
   network_mode             = "awsvpc"
