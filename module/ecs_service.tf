@@ -34,11 +34,6 @@ resource "aws_ecs_service" "service" {
   }
 }
 
-# Output for EC2 ECS Service
-output "ecs_service_name" {
-  value = aws_ecs_service.service[0].name  # Indexed for output
-  condition = var.launch_type == "ec2"
-}
 
 
 # Fargate ECS Service
@@ -69,8 +64,14 @@ resource "aws_ecs_service" "service_fargate" {
   }
 }
 
+#################Outputs#####################
+
+# Output for EC2 ECS Service
+output "ecs_service_name" {
+  value = var.launch_type == "ec2" ? aws_ecs_service.service[0].name : null
+}
+
 # Output for Fargate ECS Service
 output "ecs_service_fargate_name" {
-  value = aws_ecs_service.service_fargate[0].name  # Indexed for output
-  condition = var.launch_type == "fargate"
+  value = var.launch_type == "fargate" ? aws_ecs_service.service_fargate[0].name : null
 }
