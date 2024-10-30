@@ -48,7 +48,7 @@ output "ecs_service_name" {
 ## Creates ECS Service
 ########################################################################################################################
 
-resource "aws_ecs_service" "service" {
+resource "aws_ecs_service" "service_fargate" {
   count = var.launch_type == "fargate" ? 1 : 0
   name                               = "${var.namespace}_ECS_Service_${var.environment}"
   cluster                            = aws_ecs_cluster.default.id
