@@ -13,10 +13,7 @@ variable "domain_name" {
   type        = string
 }
 
-variable "service_name" {
-  description = "A Docker image-compatible name for the service"
-  type        = string
-}
+
 
 variable "scenario" {
   description = "Scenario name for tags"
@@ -86,10 +83,7 @@ variable "instance_type" {
 ## ECS variables
 ########################################################################################################################
 
-variable "ecs_task_desired_count" {
-  description = "How many ECS tasks should run in parallel"
-  type        = number
-}
+
 
 variable "ecs_task_min_count" {
   description = "How many ECS tasks should minimally run in parallel"
@@ -145,23 +139,7 @@ variable "target_capacity" {
   type        = number
 }
 
-variable "container_port" {
-  description = "Port of the container"
-  type        = number
-  default     = 3000
-}
 
-variable "cpu_units" {
-  description = "Amount of CPU units for a single ECS task"
-  default     = 100
-  type        = number
-}
-
-variable "memory" {
-  description = "Amount of memory in MB for a single ECS task"
-  default     = 256
-  type        = number
-}
 
 ########################################################################################################################
 ## Cloudwatch
@@ -183,10 +161,7 @@ variable "retention_in_days" {
 #   type        = bool
 # }
 
-variable "image_uri" {
-  description = "nginx"
-  type        = string
-}
+
 
 ########################################################################################################################
 ## Autoscaling Group
