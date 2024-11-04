@@ -208,4 +208,21 @@ variable "aws_acm_certificate_arn" {
 
 }
 
-
+variable "service_name" {
+  
+}
+variable "ecs_task_desired_count" {
+  
+}
+variable "container_port" {
+  
+}
+variable "cpu_units" {
+  
+}
+variable "memory" {
+  
+}
+variable "image_uri" {
+  
+}

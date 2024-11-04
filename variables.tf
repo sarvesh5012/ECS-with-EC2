@@ -14,7 +14,6 @@ variable "domain_name" {
 }
 
 
-
 variable "scenario" {
   description = "Scenario name for tags"
   default     = "scenario-ecs-ec2"
@@ -194,6 +193,6 @@ variable "aws_acm_certificate_arn" {
 }
 
 variable "containers" {
-    type = map
-    
+    type = map(any)
+    default = {}
 }
