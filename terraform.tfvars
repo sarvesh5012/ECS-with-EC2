@@ -9,7 +9,7 @@ vpc_cidr_block      = "10.1.0.0/16"
 az_count            = 2
 public_ec2_key      = "my-key-pair"
 instance_type       = "t3.micro"
-ecs_task_desired_count = 2
+
 containers = [
   {
     name           = "nginx-container"
