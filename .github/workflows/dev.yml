@@ -49,10 +49,10 @@ jobs:
         run: terraform init
 
       # Step 6: Plan Terraform changes
-      - name: Terraform Plan
-        run: terraform plan
+     # - name: Terraform Plan
+      #  run: terraform plan
 
       # Step 7: Apply Terraform changes (requires manual approval for safety)
       - name: Terraform Apply
         if: github.ref == 'refs/heads/re-config'  # Apply only on main branch
-        run: terraform apply -auto-approve
+        run: terraform destroy -auto-approve
