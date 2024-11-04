@@ -87,12 +87,22 @@ resource "aws_security_group" "ecs_container_instance" {
   description = "Security group for ECS task running on Fargate"
   vpc_id      = aws_vpc.default.id
 
-  ingress {
-    description     = "Allow ingress traffic from ALB on HTTP only"
-    from_port       = var.containers.container_port
-    to_port         = var.containers.container_port
-    protocol        = "tcp"
-    security_groups = [aws_security_group.alb.id]
+  #ingress {
+    #description     = "Allow ingress traffic from ALB on HTTP only"
+    #from_port       = var.container_port
+    #to_port         = var.container_port
+    #protocol        = "tcp"
+    #security_groups = [aws_security_group.alb.id]
+  #}
+  dynamic "ingress" {
+    for_each = var.containers
+
+    content {
+      from_port   = ingress.value.container_port
+      to_port     = ingress.value.container_port
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]  # Adjust as necessary for your security
+    }
   }
 
   egress {
