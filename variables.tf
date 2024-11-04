@@ -220,3 +220,13 @@ variable "aws_acm_certificate_arn" {
 }
 
 
+variable "containers" {
+  description = "List of container configurations"
+  type = list(object({
+    name          = string
+    image_uri     = string
+    container_port = number
+    cpu_units     = number
+    memory        = number
+  }))
+}

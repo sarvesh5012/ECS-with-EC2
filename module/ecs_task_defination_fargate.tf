@@ -1,5 +1,6 @@
 # Fargate
 
+
 resource "aws_ecs_task_definition" "default" {
   family                   = "${var.namespace}_ECS_TaskDefinition_${var.environment}"
   network_mode             = "awsvpc"
@@ -9,16 +10,16 @@ resource "aws_ecs_task_definition" "default" {
   memory                   = var.memory
 
   container_definitions = jsonencode([
-    {
-      name         = var.service_name
-      image        = var.image_uri
-      cpu          = var.cpu_units
-      memory       = var.memory
-      essential    = true
+    for container in var.containers : {
+      name         = container.name
+      image        = container.image_uri
+      cpu          = container.cpu
+      memory       = container.memory
+      essential    = container.essential
       portMappings = [
         {
-          containerPort = var.container_port
-          hostPort      = var.container_port
+          containerPort = container.container_port
+          hostPort      = container.container_port
           protocol      = "tcp"
         }
       ]
@@ -27,7 +28,7 @@ resource "aws_ecs_task_definition" "default" {
         options   = {
           "awslogs-group"         = aws_cloudwatch_log_group.log_group.name
           "awslogs-region"        = var.region
-          "awslogs-stream-prefix" = "${var.service_name}-log-stream-${var.environment}"
+          "awslogs-stream-prefix" = "${container.name}-log-stream-${var.environment}"
         }
       }
     }
