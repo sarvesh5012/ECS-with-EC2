@@ -1,9 +1,9 @@
 # Service variables
-namespace           = "virtue"
+#namespace           = "virtue"
 domain_name         = "virtues.agency"
 #service_name        = "my-service"
 scenario            = "scenario-ecs-ec2"
-environment         = "dev"
+#environment         = "dev"
 # AWS credentials
 region                = "ap-southeast-1"
 # Network variables
@@ -16,20 +16,24 @@ instance_type    = "t3.micro"
 #ecs_task_desired_count  
 containers = {
   container_1 = { 
+    namespace           = "virtue"
     ecs_task_desired_count                         = 1
     service_name           = "nginx-container"
     image_uri      = "nginx"
     container_port = 80
     cpu_units      = 2048
     memory         = 8192
+    environment         = "dev"
   },
   container_2 = {
+    namespace           = "Abc"
     ecs_task_desired_count                         = 1
     service_name           = "app-container"
     image_uri      = "httpd"
     container_port = 80
     cpu_units      = 1024
     memory         = 4096
+    environment         = "dev"
   }
 }
 

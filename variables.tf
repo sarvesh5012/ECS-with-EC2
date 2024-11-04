@@ -2,11 +2,11 @@
 ## Service variables
 ########################################################################################################################
 
-variable "namespace" {
-  description = "Namespace for resource names"
-  default     = "ecs"
-  type        = string
-}
+# variable "namespace" {
+#   description = "Namespace for resource names"
+#   default     = "ecs"
+#   type        = string
+# }
 
 variable "domain_name" {
   description = "Domain name of the service (like service.example.com)"
@@ -20,11 +20,11 @@ variable "scenario" {
   type        = string
 }
 
-variable "environment" {
-  description = "Environment for deployment (like dev or staging)"
-  default     = "dev"
-  type        = string
-}
+# variable "environment" {
+#   description = "Environment for deployment (like dev or staging)"
+#   default     = "dev"
+#   type        = string
+# }
 
 ########################################################################################################################
 ## AWS credentials
@@ -196,3 +196,4 @@ variable "containers" {
     type = map(any)
     default = {}
 }
+

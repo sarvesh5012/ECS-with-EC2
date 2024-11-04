@@ -41,6 +41,6 @@ resource "aws_ecs_service" "service" {
 
 # Output for EC2 ECS Service
 output "ecs_service_name" {
-  value = var.launch_type == "ec2" ? aws_ecs_service.service.name : null
+  value = aws_ecs_service.service.name
 }
 

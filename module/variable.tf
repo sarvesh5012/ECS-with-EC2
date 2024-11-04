@@ -226,3 +226,7 @@ variable "memory" {
 variable "image_uri" {
   
 }
+
+variable "ecs_loadbalancer_name    " {
+  
+}

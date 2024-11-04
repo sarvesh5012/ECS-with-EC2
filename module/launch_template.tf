@@ -6,7 +6,7 @@
 ########################################################################################################################
 
 resource "aws_launch_template" "ecs_launch_template" {
-  count = var.launch_type == "ec2" ? 1 : 0
+  
   name                   = "${var.namespace}_EC2_LaunchTemplate_${var.environment}"
   image_id               = data.aws_ami.amazon_linux_2.id
   instance_type          = var.instance_type

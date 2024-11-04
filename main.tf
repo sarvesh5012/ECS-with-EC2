@@ -3,7 +3,7 @@
 module "ecs_infrastructure" {
   source                                      = "./module"
   for_each                                    = var.containers
-  namespace                                   = var.namespace
+  namespace                                   = each.value.namespace
   region                                      = var.region
   ecs_task_desired_count                      = each.value.ecs_task_desired_count
   container_port                              = each.value.container_port
@@ -11,7 +11,7 @@ module "ecs_infrastructure" {
   image_uri                                   = each.value.image_uri
   domain_name                                 = var.domain_name
   scenario                                    = var.scenario
-  environment                                 = var.environment
+  environment                                 = each.value.environment
   vpc_cidr_block                              = var.vpc_cidr_block
   az_count                                    = var.az_count
   public_ec2_key                              = var.public_ec2_key

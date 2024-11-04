@@ -2,7 +2,7 @@
 ## Application Load Balancer in public subnets with HTTP default listener that redirects traffic to HTTPS
 ########################################################################################################################
 
-resource "aws_alb" "alb" {
+resource "aws_alb" "alb" { 
   name            = "${var.namespace}-ALB-${var.environment}"
   security_groups = [aws_security_group.alb.id]
   subnets         = aws_subnet.public.*.id
