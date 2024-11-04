@@ -3,14 +3,15 @@
 
 module "ecs_infrastructure" {
   source = "./module"
-
+  for_each = var.containers
+  
   ########################################################################################################################
   ## Service variables
   ########################################################################################################################
 
   namespace           = var.namespace
   domain_name         = var.domain_name
-  service_name        = var.service_name
+  service_name        = each.value.service_name
   scenario            = var.scenario
   environment         = var.environment
 
@@ -38,7 +39,7 @@ module "ecs_infrastructure" {
   ## ECS variables
   ########################################################################################################################
 
-  ecs_task_desired_count                      = var.ecs_task_desired_count
+  ecs_task_desired_count                      = each.value.ecs_task_desired_count
   ecs_task_min_count                          = var.ecs_task_min_count
   ecs_task_max_count                          = var.ecs_task_max_count
   ecs_task_deployment_minimum_healthy_percent = var.ecs_task_deployment_minimum_healthy_percent
@@ -48,9 +49,9 @@ module "ecs_infrastructure" {
   maximum_scaling_step_size                   = var.maximum_scaling_step_size
   minimum_scaling_step_size                   = var.minimum_scaling_step_size
   target_capacity                             = var.target_capacity
-  container_port                              = var.container_port
-  cpu_units                                   = var.cpu_units
-  memory                                      = var.memory
+  container_port                              = each.value.container_port
+  cpu_units                                   = each.value.cpu_units
+  memory                                      = each.value.memory
 
   ########################################################################################################################
   ## Cloudwatch
@@ -62,7 +63,7 @@ module "ecs_infrastructure" {
   ## ECR
   ########################################################################################################################
 
-  image_uri           = var.image_uri
+  image_uri           = each.value.image_uri
 
   ########################################################################################################################
   ## Autoscaling Group

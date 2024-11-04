@@ -4,10 +4,10 @@ on:
   # Trigger the workflow on push to the main branch or pull request
   push:
     branches:
-      - main
+      - re-config
   pull_request:
     branches:
-      - main
+      - re-config
 
 jobs:
   terraform:

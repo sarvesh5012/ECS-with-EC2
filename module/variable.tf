@@ -234,3 +234,7 @@ variable "aws_acm_certificate_arn" {
 }
 
 
+variable "containers" {
+    type = map
+    
+}
