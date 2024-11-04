@@ -96,13 +96,14 @@ resource "aws_security_group" "ecs_container_instance" {
   #}
   dynamic "ingress" {
     for_each = var.containers
-
+    description     = "Allow ingress traffic from ALB on HTTP only"
     content {
       from_port   = ingress.value.container_port
       to_port     = ingress.value.container_port
       protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]  # Adjust as necessary for your security
+      
     }
+    security_groups = [aws_security_group.alb.id]
   }
 
   egress {
