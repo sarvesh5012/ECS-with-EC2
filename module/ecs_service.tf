@@ -4,7 +4,7 @@ resource "aws_ecs_service" "service" {
   iam_role                           = aws_iam_role.ecs_service_role.arn
   cluster                            = aws_ecs_cluster.default.id
   task_definition                    = aws_ecs_task_definition.default.arn  # Indexed for EC2
-  desired_count                      = var.ecs_task_desired_count
+  desired_count                      = length(var.containers)
   deployment_minimum_healthy_percent = var.ecs_task_deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.ecs_task_deployment_maximum_percent
 

@@ -86,10 +86,10 @@ variable "instance_type" {
 ## ECS variables
 ########################################################################################################################
 
-variable "ecs_task_desired_count" {
-  description = "How many ECS tasks should run in parallel"
-  type        = number
-}
+#variable "ecs_task_desired_count" {
+  #description = "How many ECS tasks should run in parallel"
+  #type        = number
+#}
 
 variable "ecs_task_min_count" {
   description = "How many ECS tasks should minimally run in parallel"
