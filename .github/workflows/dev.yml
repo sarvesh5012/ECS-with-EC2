@@ -4,10 +4,10 @@ on:
   # Trigger the workflow on push to the main branch or pull request
   push:
     branches:
-      - main
+      - dev
   pull_request:
     branches:
-      - main
+      - dev
 
 jobs:
   terraform:
@@ -49,10 +49,10 @@ jobs:
         run: terraform init
 
       # Step 6: Plan Terraform changes
-      #- name: Terraform Plan
-        #run: terraform plan
+      - name: Terraform Plan
+        run: terraform plan
 
       # Step 7: Apply Terraform changes (requires manual approval for safety)
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/dev'  # Apply only on main branch
-        run: terraform destroy -auto-approve
+      # - name: Terraform Apply
+      #   if: github.ref == 'refs/heads/dev'  # Apply only on main branch
+      #   run: terraform destroy -auto-approve

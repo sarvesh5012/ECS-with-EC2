@@ -2,7 +2,8 @@
 ## Target Group for our service
 ########################################################################################################################
 
-resource "aws_alb_target_group" "service_target_group" {
+resource "aws_alb_target_group" "ec2_service_target_group" {
+  count = var.launch_type == "ec2" ? 1 : 0
   name                 = "${var.namespace}-TargetGroup-${var.environment}"
   port                 = 80
   protocol             = "HTTP"

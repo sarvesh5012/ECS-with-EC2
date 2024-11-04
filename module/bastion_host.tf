@@ -3,6 +3,7 @@
 ########################################################################################################################
 
 resource "aws_security_group" "bastion_host" {
+  count = var.launch_type == "ec2" ? 1 : 0
   name        = "${var.namespace}_SecurityGroup_BastionHost_${var.environment}"
   description = "Bastion host Security Group"
   vpc_id      = aws_vpc.default.id

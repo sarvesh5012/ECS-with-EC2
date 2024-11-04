@@ -3,6 +3,7 @@
 ########################################################################################################################
 
 resource "aws_security_group" "ec2" {
+  count = var.launch_type == "ec2" ? 1 : 0
   name        = "${var.namespace}_EC2_Instance_SecurityGroup_${var.environment}"
   description = "Security group for EC2 instances in ECS cluster"
   vpc_id      = aws_vpc.default.id
@@ -64,25 +65,26 @@ resource "aws_security_group" "alb" {
 ## We only allow incoming traffic on HTTPS from known CloudFront CIDR blocks
 ########################################################################################################################
 
-data "aws_ec2_managed_prefix_list" "cloudfront" {
-  name = "com.amazonaws.global.cloudfront.origin-facing"
-}
+# data "aws_ec2_managed_prefix_list" "cloudfront" {
+#   name = "com.amazonaws.global.cloudfront.origin-facing"
+# }
 
-resource "aws_security_group_rule" "alb_cloudfront_https_ingress_only" {
-  security_group_id = aws_security_group.alb.id
-  description       = "Allow HTTPS access only from CloudFront CIDR blocks"
-  from_port         = 443
-  protocol          = "tcp"
-  prefix_list_ids   = [data.aws_ec2_managed_prefix_list.cloudfront.id]
-  to_port           = 443
-  type              = "ingress"
-}
+# resource "aws_security_group_rule" "alb_cloudfront_https_ingress_only" {
+#   security_group_id = aws_security_group.alb.id
+#   description       = "Allow HTTPS access only from CloudFront CIDR blocks"
+#   from_port         = 443
+#   protocol          = "tcp"
+#   prefix_list_ids   = [data.aws_ec2_managed_prefix_list.cloudfront.id]
+#   to_port           = 443
+#   type              = "ingress"
+# }
 
 
 ## SG for ECS Container Instances
 ########################################################################################################################
 
 resource "aws_security_group" "ecs_container_instance" {
+  count = var.launch_type == "fargate" ? 1 : 0
   name        = "${var.namespace}_ECS_Task_SecurityGroup_${var.environment}"
   description = "Security group for ECS task running on Fargate"
   vpc_id      = aws_vpc.default.id

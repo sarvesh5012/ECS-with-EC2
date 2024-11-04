@@ -1,7 +1,8 @@
 ## Target Group for our fargate service
 ########################################################################################################################
 
-resource "aws_alb_target_group" "service_target_group" {
+resource "aws_alb_target_group" "fargate_service_target_group" {
+  count = var.launch_type == "fargate" ? 1 : 0
   name                 = "${var.namespace}-TargetGroup-${var.environment}"
   port                 = var.container_port
   protocol             = "HTTP"

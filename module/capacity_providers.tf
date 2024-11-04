@@ -3,6 +3,7 @@
 ########################################################################################################################
 
 resource "aws_ecs_capacity_provider" "cas" {
+  count = var.launch_type == "ec2" ? 1 : 0
   name = "${var.namespace}_ECS_CapacityProvider_${var.environment}"
 
   auto_scaling_group_provider {

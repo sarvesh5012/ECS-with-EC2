@@ -234,3 +234,7 @@ variable "aws_acm_certificate_arn" {
 }
 
 
+variable "launch_type" {
+  type = string
+  default = "fargate"
+}

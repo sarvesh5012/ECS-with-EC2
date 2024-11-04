@@ -28,6 +28,7 @@ resource "aws_launch_template" "ecs_launch_template" {
 }
 
 data "template_file" "user_data" {
+  count = var.launch_type == "ec2" ? 1 : 0
   template = file("module/user_data.sh")
 
   vars = {
