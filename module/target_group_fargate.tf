@@ -3,7 +3,7 @@
 
 resource "aws_alb_target_group" "service_target_group" {
   name                 = "${var.namespace}-TargetGroup-${var.environment}"
-  port                 = var.container_port
+  port                 = container.container_port
   protocol             = "HTTP"
   vpc_id               = aws_vpc.default.id
   deregistration_delay = 5
