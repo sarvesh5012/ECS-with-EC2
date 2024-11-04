@@ -20,8 +20,8 @@ containers = [
   },
   {
     name           = "app-container"
-    image_uri      = "my-app-image"
-    container_port = 8080
+    image_uri      = "httpd"
+    container_port = 80
     cpu_units      = 1024
     memory         = 4096
   }
