@@ -3,7 +3,7 @@ namespace           = "virtue"
 domain_name         = "virtues.agency"
 #service_name        = "my-service"
 scenario            = "scenario-ecs-ec2"
-#environment         = "dev"
+environment         = "dev"
 # AWS credentials
 region                = "ap-southeast-1"
 # Network variables
@@ -23,7 +23,7 @@ containers = {
     container_port = 80
     cpu_units      = 2048
     memory         = 8192
-    environment         = "dev"
+    
   },
   container_2 = {
     
@@ -33,7 +33,7 @@ containers = {
     container_port = 80
     cpu_units      = 1024
     memory         = 4096
-    environment         = "dev"
+    
   }
 }
 
