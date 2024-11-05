@@ -98,7 +98,7 @@ resource "aws_security_group" "ecs_container_instance" {
     protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
   }
-
+  depends_on = [aws_ecs_service.ec2_service]
   tags = {
     Name     = "${var.namespace}_ECS_Task_SecurityGroup_${var.environment}"
     Scenario = var.scenario

@@ -17,6 +17,7 @@ resource "aws_appautoscaling_target" "ec2_ecs_target" {
   resource_id        = "service/${aws_ecs_cluster.default.name}/${each.value.service_name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
+  depends_on = [aws_ecs_service.ec2_service]
 }
 
 # Policy for CPU tracking
