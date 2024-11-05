@@ -40,7 +40,7 @@ resource "aws_alb_listener" "alb_default_listener_https" {
 
 resource "aws_alb_listener_rule" "fargate_https_listener_rule" {
   count = var.launch_type == "fargate" ? 1 : 0
-  listener_arn = aws_alb_listener.alb_default_listener_https[0].arn
+  listener_arn = aws_alb_listener.alb_default_listener_https.arn
 
   action {
     type             = "forward"
