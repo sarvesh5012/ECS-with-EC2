@@ -3,7 +3,7 @@
 resource "aws_ecs_task_definition" "fargate_default" {
   # count = var.launch_type == "fargate" ? 1 : 0
   for_each =var.containers
-  family                   = "${var.service_name}_Tdf_${var.environment}"
+  family                   = "${each.value.service_name}_Tdf_${var.environment}"
   network_mode             = "awsvpc"
   requires_compatibilities = ["${var.launch_type}"]
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
@@ -29,7 +29,7 @@ resource "aws_ecs_task_definition" "fargate_default" {
         options   = {
           "awslogs-group"         = aws_cloudwatch_log_group.log_group[0].name
           "awslogs-region"        = var.region
-          "awslogs-stream-prefix" = "${var.service_name}-log-stream-${var.environment}"
+          "awslogs-stream-prefix" = "${each.value.service_name}-log-stream-${var.environment}"
         }
       }
     }
