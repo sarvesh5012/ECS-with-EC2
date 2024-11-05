@@ -6,8 +6,7 @@ module "ecs_infrastructure" {
     # Service variables
   
   namespace           = var.namespace
-  domain_name         = var.domain_name
-  service_name        = var.service_name
+  # domain_name         = var.domain_name
   scenario            = var.scenario
   environment         = var.environment
 
@@ -22,7 +21,7 @@ module "ecs_infrastructure" {
 
     # EC2 Computing variables
   
-  public_ec2_key      = var.public_ec2_key
+  # public_ec2_key      = var.public_ec2_key
   instance_type       = var.instance_type
 
     # ECS variables
@@ -40,10 +39,6 @@ module "ecs_infrastructure" {
     # Cloudwatch
   
   retention_in_days   = var.retention_in_days
-
-    # ECR
-  
-  image_uri           = var.image_uri
 
     # Autoscaling Group
   

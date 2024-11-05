@@ -1,7 +1,7 @@
 # Service variables
 
 namespace           = "virtue"
-domain_name         = "virtues.agency"
+# domain_name         = "virtues.agency"
 
 scenario            = "scenario-ecs-ec2"
 environment         = "dev"
@@ -17,7 +17,7 @@ az_count         = 2
 
 # EC2 Computing variables
 
-public_ec2_key   = "my-key-pair"
+# public_ec2_key   = "my-key-pair"
 instance_type    = "t3.micro"
 
 # ECS variables
@@ -31,7 +31,7 @@ containers = {
     container_port = 80
     cpu_units      = 2048
     memory         = 8192
-    custom_origin_host_header  = "dev"
+    custom_origin_host_header  = "dev.virtues.agency"
     
   },
   container_2 = {
@@ -42,7 +42,7 @@ containers = {
     container_port = 80
     cpu_units      = 1024
     memory         = 4096
-    custom_origin_host_header  = "dev1"
+    custom_origin_host_header  = "dev1.virtues.agency"
     
   }
 }

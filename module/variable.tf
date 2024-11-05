@@ -6,10 +6,10 @@ variable "namespace" {
   type        = string
 }
 
-variable "domain_name" {
-  description = "Domain name of the service (like service.example.com)"
-  type        = string
-}
+# variable "domain_name" {
+#   description = "Domain name of the service (like service.example.com)"
+#   type        = string
+# }
 
 # variable "service_name" {
 #   description = "A Docker image-compatible name for the service"
@@ -63,10 +63,10 @@ variable "az_count" {
 
 # EC2 Computing variables
 
-variable "public_ec2_key" {
-  description = "Public key for SSH access to EC2 instances"
-  type        = string
-}
+# variable "public_ec2_key" {
+#   description = "Public key for SSH access to EC2 instances"
+#   type        = string
+# }
 
 variable "instance_type" {
   description = "Instance type for EC2"
@@ -76,10 +76,10 @@ variable "instance_type" {
 
 # ECS variables
 
-variable "ecs_task_desired_count" {
-  description = "How many ECS tasks should run in parallel"
-  type        = number
-}
+# variable "ecs_task_desired_count" {
+#   description = "How many ECS tasks should run in parallel"
+#   type        = number
+# }
 
 variable "ecs_task_min_count" {
   description = "How many ECS tasks should minimally run in parallel"
