@@ -20,11 +20,11 @@ variable "scenario" {
   type        = string
 }
 
-# variable "environment" {
-#   description = "Environment for deployment (like dev or staging)"
-#   default     = "dev"
-#   type        = string
-# }
+variable "environment" {
+   description = "Environment for deployment (like dev or staging)"
+   default     = "dev"
+   type        = string
+}
 
 ########################################################################################################################
 ## AWS credentials
