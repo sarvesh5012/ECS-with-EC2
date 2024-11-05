@@ -84,7 +84,7 @@ resource "aws_alb_listener_rule" "ec2_https_listener_rule" {
 
   action {
     type             = "forward"
-    target_group_arn = aws_alb_target_group.ec2_service_target_group["${each.value.service_name}"].arn
+    target_group_arn = aws_alb_target_group.ec2_service_target_group["${each.key}"].arn
   }
 
   condition {
