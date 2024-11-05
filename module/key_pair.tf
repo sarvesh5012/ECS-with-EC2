@@ -1,26 +1,26 @@
 # Create a public and private key pair for login to the EC2 Instances
 
-data "aws_key_pair" "example" {
-  key_name           = "KEY00"
-  include_public_key = true
+# data "aws_key_pair" "example" {
+#  key_name           = "KEY00"
+#  include_public_key = true
 
-  filter {
-    name   = "tag:env"
-    values = ["dev"]
-  }
-}
+#  filter {
+#    name   = "tag:env"
+#    values = ["dev"]
+#  }
+# }
 
-output "fingerprint" {
-  value = data.aws_key_pair.example.fingerprint
-}
+# output "fingerprint" {
+#   value = data.aws_key_pair.example.fingerprint
+# }
 
-output "name" {
-  value = data.aws_key_pair.example.key_name
-}
+# output "name" {
+#   value = data.aws_key_pair.example.key_name
+# }
 
-output "id" {
-  value = data.aws_key_pair.example.id
-}
+# output "id" {
+#   value = data.aws_key_pair.example.id
+# }
 
 # resource "tls_private_key" "example" {
 #   count = var.launch_type == "ec2" ? 1 : 0
