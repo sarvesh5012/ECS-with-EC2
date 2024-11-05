@@ -78,7 +78,7 @@ resource "aws_alb_listener" "alb_default_listener_https" {
 
 
 resource "aws_alb_listener_rule" "ec2_https_listener_rule" {
-  # count = var.launch_type == "ec2" ? 1 : 0
+  # count = var.launch_type == "EC2" ? 1 : 0
   for_each = var.containers
   listener_arn = aws_alb_listener.alb_default_listener_https.arn
 

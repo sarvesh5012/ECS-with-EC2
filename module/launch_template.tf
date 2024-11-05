@@ -3,7 +3,7 @@
 # Launch template for all EC2 instances that are part of the ECS cluster
 
 resource "aws_launch_template" "ecs_launch_template" {
-  count = var.launch_type == "ec2" ? 1 : 0
+  count = var.launch_type == "EC2" ? 1 : 0
   name                   = "${var.namespace}_EC2_LaunchTemplate_${var.environment}"
   image_id               = data.aws_ami.amazon_linux_2.id
   instance_type          = var.instance_type
@@ -25,7 +25,7 @@ resource "aws_launch_template" "ecs_launch_template" {
 }
 
 data "template_file" "user_data" {
-  count = var.launch_type == "ec2" ? 1 : 0
+  count = var.launch_type == "EC2" ? 1 : 0
   template = file("module/user_data.sh")
 
   vars = {

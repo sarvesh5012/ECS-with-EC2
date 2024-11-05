@@ -23,13 +23,13 @@
 # }
 
 # resource "tls_private_key" "example" {
-#   count = var.launch_type == "ec2" ? 1 : 0
+#   count = var.launch_type == "EC2" ? 1 : 0
 #   algorithm = "RSA"
 #   rsa_bits  = 2048
 #  }
 
 # resource "aws_key_pair" "default" {
-#   count = var.launch_type == "ec2" ? 1 : 0
+#   count = var.launch_type == "EC2" ? 1 : 0
 #   key_name   = "${var.namespace}_KeyPair_${var.environment}"
 #   public_key = tls_private_key.example[0].public_key_openssh
 

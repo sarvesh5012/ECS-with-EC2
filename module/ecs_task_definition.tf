@@ -1,7 +1,7 @@
 # Creates ECS Task Definition
 
 # resource "aws_ecs_task_definition" "ec2_default" {
-#   count = var.launch_type == "ec2" ? 1 : 0
+#   count = var.launch_type == "EC2" ? 1 : 0
 #   family             = "${var.namespace}_ECS_TaskDefinition_${var.environment}"
 #   execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
 #   task_role_arn      = aws_iam_role.ecs_task_iam_role.arn

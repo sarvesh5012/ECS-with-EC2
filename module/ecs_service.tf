@@ -1,6 +1,6 @@
 # EC2 ECS Service
 resource "aws_ecs_service" "ec2_service" {
-  # count = var.launch_type == "ec2" ? 1 : 0
+  # count = var.launch_type == "EC2" ? 1 : 0
   for_each = var.containers
   name                               = "${var.namespace}_ECS_Service_${var.environment}"
   iam_role                           = aws_iam_role.ecs_service_role.arn
@@ -40,6 +40,6 @@ resource "aws_ecs_service" "ec2_service" {
 
 # Output for EC2 ECS Service
 # output "ecs_service_name" {
-#   value = var.launch_type == "ec2" ? aws_ecs_service.service.name : null
+#   value = var.launch_type == "EC2" ? aws_ecs_service.service.name : null
 # }
 

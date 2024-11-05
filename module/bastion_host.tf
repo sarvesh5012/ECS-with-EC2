@@ -1,7 +1,7 @@
 # Bastion host SG and EC2 Instance
 
 resource "aws_security_group" "bastion_host" {
-  count = var.launch_type == "ec2" ? 1 : 0
+  count = var.launch_type == "EC2" ? 1 : 0
   name        = "${var.namespace}_SecurityGroup_BastionHost_${var.environment}"
   description = "Bastion host Security Group"
   vpc_id      = aws_vpc.default.id
@@ -28,7 +28,7 @@ resource "aws_security_group" "bastion_host" {
 }
 
 resource "aws_instance" "bastion_host" {
-  count = var.launch_type == "ec2" ? 1 : 0
+  count = var.launch_type == "EC2" ? 1 : 0
   ami                         = data.aws_ami.amazon_linux_2.id
   instance_type               = "t3.micro"
   subnet_id                   = aws_subnet.public[0].id
