@@ -11,7 +11,7 @@ module "ecs_infrastructure" {
   image_uri                                   = each.value.image_uri
   domain_name                                 = var.domain_name
   scenario                                    = var.scenario
-  environment                                 = each.value.environment
+  environment                                 = var.environment
   vpc_cidr_block                              = var.vpc_cidr_block
   az_count                                    = var.az_count
   public_ec2_key                              = var.public_ec2_key
