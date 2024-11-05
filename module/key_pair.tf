@@ -11,7 +11,7 @@ resource "tls_private_key" "example" {
 resource "aws_key_pair" "default" {
   count = var.launch_type == "ec2" ? 1 : 0
   key_name   = "${var.namespace}_KeyPair_${var.environment}"
-  public_key = tls_private_key.example.public_key_openssh
+  public_key = tls_private_key.example[0].public_key_openssh
 
   tags = {
     Scenario = var.scenario

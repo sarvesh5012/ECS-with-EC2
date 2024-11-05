@@ -40,11 +40,11 @@ resource "aws_alb_listener" "alb_default_listener_https" {
 
 resource "aws_alb_listener_rule" "fargate_https_listener_rule" {
   count = var.launch_type == "fargate" ? 1 : 0
-  listener_arn = aws_alb_listener.alb_default_listener_https.arn
+  listener_arn = aws_alb_listener.alb_default_listener_https[0].arn
 
   action {
     type             = "forward"
-    target_group_arn = aws_alb_target_group.fargate_service_target_group.arn
+    target_group_arn = aws_alb_target_group.fargate_service_target_group[0].arn
   }
 
   condition {
@@ -63,11 +63,11 @@ resource "aws_alb_listener_rule" "fargate_https_listener_rule" {
 
 resource "aws_alb_listener_rule" "ec2_https_listener_rule" {
   count = var.launch_type == "ec2" ? 1 : 0
-  listener_arn = aws_alb_listener.alb_default_listener_https.arn
+  listener_arn = aws_alb_listener.alb_default_listener_https[0].arn
 
   action {
     type             = "forward"
-    target_group_arn = aws_alb_target_group.ec2_service_target_group.arn
+    target_group_arn = aws_alb_target_group.ec2_service_target_group[0].arn
   }
 
   condition {

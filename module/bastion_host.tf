@@ -33,7 +33,7 @@ resource "aws_instance" "bastion_host" {
   subnet_id                   = aws_subnet.public[0].id
   associate_public_ip_address = true
   key_name                    = aws_key_pair.default.id
-  vpc_security_group_ids      = [aws_security_group.bastion_host.id]
+  vpc_security_group_ids      = [aws_security_group.bastion_host[0].id]
 
   tags = {
     Name     = "${var.namespace}_EC2_BastionHost_${var.environment}"
