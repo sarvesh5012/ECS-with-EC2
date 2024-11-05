@@ -1,5 +1,4 @@
-## Target Group for our fargate service
-########################################################################################################################
+# Target Group for our fargate service
 
 resource "aws_alb_target_group" "fargate_service_target_group" {
   count = var.launch_type == "fargate" ? 1 : 0

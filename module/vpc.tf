@@ -1,6 +1,4 @@
-########################################################################################################################
-## Create VPC with a CIDR block that has enough capacity for the amount of DNS names you need
-########################################################################################################################
+# Create VPC with a CIDR block that has enough capacity for the amount of DNS names you need
 
 resource "aws_vpc" "default" {
   cidr_block           = var.vpc_cidr_block
@@ -13,9 +11,7 @@ resource "aws_vpc" "default" {
   }
 }
 
-########################################################################################################################
-## Create Internet Gateway for egress/ingress connections to resources in the public subnets
-########################################################################################################################
+# Create Internet Gateway for egress/ingress connections to resources in the public subnets
 
 resource "aws_internet_gateway" "default" {
   vpc_id = aws_vpc.default.id

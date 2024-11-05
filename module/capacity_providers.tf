@@ -1,6 +1,4 @@
-########################################################################################################################
-## Creates Capacity Provider linked with ASG and ECS Cluster
-########################################################################################################################
+# Creates Capacity Provider linked with ASG and ECS Cluster
 
 resource "aws_ecs_capacity_provider" "cas" {
   count = var.launch_type == "ec2" ? 1 : 0

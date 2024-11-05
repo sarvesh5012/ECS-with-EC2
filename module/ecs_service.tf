@@ -38,7 +38,7 @@ resource "aws_ecs_service" "ec2_service" {
 
 
 
-#################Outputs#####################
+#########Outputs###########
 
 # Output for EC2 ECS Service
 # output "ecs_service_name" {

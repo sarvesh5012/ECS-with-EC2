@@ -1,9 +1,6 @@
-########################################################################################################################
 
 
-########################################################################################################################
-## Launch template for all EC2 instances that are part of the ECS cluster
-########################################################################################################################
+# Launch template for all EC2 instances that are part of the ECS cluster
 
 resource "aws_launch_template" "ecs_launch_template" {
   count = var.launch_type == "ec2" ? 1 : 0

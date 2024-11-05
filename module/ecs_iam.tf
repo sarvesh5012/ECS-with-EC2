@@ -1,6 +1,4 @@
-########################################################################################################################
-## Creates IAM Role which is assumed by the Container Instances (aka EC2 Instances)
-########################################################################################################################
+# Creates IAM Role which is assumed by the Container Instances (aka EC2 Instances)
 
 resource "aws_iam_role" "ec2_instance_role" {
   name               = "${var.namespace}_EC2_InstanceRole_${var.environment}"
@@ -40,9 +38,7 @@ data "aws_iam_policy_document" "ec2_instance_role_policy" {
   }
 }
 
-########################################################################################################################
-## Create service-linked role used by the ECS Service to manage the ECS Cluster
-########################################################################################################################
+# Create service-linked role used by the ECS Service to manage the ECS Cluster
 
 resource "aws_iam_role" "ecs_service_role" {
   name               = "${var.namespace}_ECS_ServiceRole_${var.environment}"
@@ -93,9 +89,7 @@ data "aws_iam_policy_document" "ecs_service_role_policy" {
   }
 }
 
-########################################################################################################################
-## IAM Role for ECS Task execution
-########################################################################################################################
+# IAM Role for ECS Task execution
 
 resource "aws_iam_role" "ecs_task_execution_role" {
   name               = "${var.namespace}_ECS_TaskExecutionRole_${var.environment}"
@@ -122,9 +116,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
-########################################################################################################################
-## IAM Role for ECS Task
-########################################################################################################################
+# IAM Role for ECS Task
 
 resource "aws_iam_role" "ecs_task_iam_role" {
   name               = "${var.namespace}_ECS_TaskIAMRole_${var.environment}"

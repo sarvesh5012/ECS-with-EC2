@@ -1,6 +1,4 @@
-########################################################################################################################
-## SG for EC2 instances
-########################################################################################################################
+# SG for EC2 instances
 
 resource "aws_security_group" "ec2" {
   count = var.launch_type == "ec2" ? 1 : 0
@@ -38,9 +36,7 @@ resource "aws_security_group" "ec2" {
   }
 }
 
-########################################################################################################################
-## SG for ALB
-########################################################################################################################
+# SG for ALB
 
 resource "aws_security_group" "alb" {
   name        = "${var.namespace}_ALB_SecurityGroup_${var.environment}"
@@ -61,9 +57,7 @@ resource "aws_security_group" "alb" {
   }
 }
 
-########################################################################################################################
-## We only allow incoming traffic on HTTPS from known CloudFront CIDR blocks
-########################################################################################################################
+# We only allow incoming traffic on HTTPS from known CloudFront CIDR blocks
 
 # data "aws_ec2_managed_prefix_list" "cloudfront" {
 #   name = "com.amazonaws.global.cloudfront.origin-facing"
@@ -80,8 +74,7 @@ resource "aws_security_group" "alb" {
 # }
 
 
-## SG for ECS Container Instances
-########################################################################################################################
+# SG for ECS Container Instances
 
 resource "aws_security_group" "ecs_container_instance" {
   count = var.launch_type == "fargate" ? 1 : 0

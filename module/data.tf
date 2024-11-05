@@ -1,5 +1,4 @@
-## Get most recent AMI for an ECS-optimized Amazon Linux 2 instance
-########################################################################################################################
+# Get most recent AMI for an ECS-optimized Amazon Linux 2 instance
 
 data "aws_ami" "amazon_linux_2" {
   most_recent = true

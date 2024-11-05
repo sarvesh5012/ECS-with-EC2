@@ -1,12 +1,8 @@
-########################################################################################################################
-## This resource returns a list of all AZ available in the region configured in the AWS credentials
-########################################################################################################################
+# This resource returns a list of all AZ available in the region configured in the AWS credentials
 
 data "aws_availability_zones" "available" {}
 
-########################################################################################################################
-## Public Subnets (one public subnet per AZ)
-########################################################################################################################
+# Public Subnets (one public subnet per AZ)
 
 resource "aws_subnet" "public" {
   count                   = var.az_count
@@ -21,9 +17,7 @@ resource "aws_subnet" "public" {
   }
 }
 
-########################################################################################################################
-## Route Table with egress route to the internet
-########################################################################################################################
+# Route Table with egress route to the internet
 
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.default.id
@@ -39,9 +33,7 @@ resource "aws_route_table" "public" {
   }
 }
 
-########################################################################################################################
-## Associate Route Table with Public Subnets
-########################################################################################################################
+# Associate Route Table with Public Subnets
 
 resource "aws_route_table_association" "public" {
   count          = var.az_count
@@ -49,18 +41,14 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_route_table.public.id
 }
 
-########################################################################################################################
-## Make our Route Table the main Route Table
-########################################################################################################################
+# Make our Route Table the main Route Table
 
 resource "aws_main_route_table_association" "public_main" {
   vpc_id         = aws_vpc.default.id
   route_table_id = aws_route_table.public.id
 }
 
-########################################################################################################################
-## Creates one Elastic IP per AZ (one for each NAT Gateway in each AZ)
-########################################################################################################################
+# Creates one Elastic IP per AZ (one for each NAT Gateway in each AZ)
 
 resource "aws_eip" "nat_gateway" {
   count = var.az_count
@@ -72,9 +60,7 @@ resource "aws_eip" "nat_gateway" {
   }
 }
 
-########################################################################################################################
-## Creates one NAT Gateway per AZ
-########################################################################################################################
+# Creates one NAT Gateway per AZ
 
 resource "aws_nat_gateway" "nat_gateway" {
   count         = var.az_count
@@ -87,9 +73,7 @@ resource "aws_nat_gateway" "nat_gateway" {
   }
 }
 
-########################################################################################################################
-## One private subnet per AZ
-########################################################################################################################
+# One private subnet per AZ
 
 resource "aws_subnet" "private" {
   count             = var.az_count
@@ -103,9 +87,7 @@ resource "aws_subnet" "private" {
   }
 }
 
-########################################################################################################################
-## Route to the internet using the NAT Gateway
-########################################################################################################################
+# Route to the internet using the NAT Gateway
 
 resource "aws_route_table" "private" {
   count  = var.az_count
@@ -122,9 +104,7 @@ resource "aws_route_table" "private" {
   }
 }
 
-########################################################################################################################
-## Associate Route Table with Private Subnets
-########################################################################################################################
+# Associate Route Table with Private Subnets
 
 resource "aws_route_table_association" "private" {
   count          = var.az_count

@@ -26,7 +26,7 @@ resource "aws_ecs_service" "fargate_service" {
   }
 }
 
-#################Outputs#####################
+#########Outputs###########
 
 # Output for Fargate ECS Service
 # output "ecs_service_fargate_name" {

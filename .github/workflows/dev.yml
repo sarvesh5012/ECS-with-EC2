@@ -4,10 +4,10 @@ on:
   # Trigger the workflow on push to the main branch or pull request
   push:
     branches:
-      - dev
+      - updated_filestructure
   pull_request:
     branches:
-      - dev
+      - updated_filestructure
 
 jobs:
   terraform:
@@ -34,15 +34,15 @@ jobs:
           aws-region: ap-southeast-1  # Replace with your AWS region
 
       # Step 4: Remove specific Terraform files to ignore them
-      - name: Remove Ignored Files
-        run: |
-          rm -f module/autoscaling_group.tf
-          rm -f module/capacity_providers.tf
-          rm -f module/launch_template.tf
-          rm -f module/ecs_service.tf
-          rm -f module/ecs_task_definition.tf
-          rm -f module/user_data.sh
-          rm -f module/target_group_instance.tf
+      # - name: Remove Ignored Files
+      #   run: |
+      #     rm -f module/autoscaling_group.tf
+      #     rm -f module/capacity_providers.tf
+      #     rm -f module/launch_template.tf
+      #     rm -f module/ecs_service.tf
+      #     rm -f module/ecs_task_definition.tf
+      #     rm -f module/user_data.sh
+      #     rm -f module/target_group_instance.tf
 
       # Step 5: Initialize Terraform
       - name: Terraform Init

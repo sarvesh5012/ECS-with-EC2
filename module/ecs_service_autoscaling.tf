@@ -1,6 +1,4 @@
-########################################################################################################################
-## Define Target Tracking on ECS Cluster Task level
-########################################################################################################################
+# Define Target Tracking on ECS Cluster Task level
 
 resource "aws_appautoscaling_target" "fargate_ecs_target" {
   count = var.launch_type == "fargate" ? 1 : 0
@@ -20,9 +18,7 @@ resource "aws_appautoscaling_target" "ec2_ecs_target" {
   service_namespace  = "ecs"
 }
 
-########################################################################################################################
-## Policy for CPU tracking
-########################################################################################################################
+# Policy for CPU tracking
 
 resource "aws_appautoscaling_policy" "fargate_ecs_cpu_policy" {
   count = var.launch_type == "fargate" ? 1 : 0
@@ -58,9 +54,7 @@ resource "aws_appautoscaling_policy" "ec2_ecs_cpu_policy" {
   }
 }
 
-########################################################################################################################
-## Policy for memory tracking
-########################################################################################################################
+# Policy for memory tracking
 
 resource "aws_appautoscaling_policy" "ec2_ecs_targetecs_memory_policy" {
   count = var.launch_type == "ec2" ? 1 : 0

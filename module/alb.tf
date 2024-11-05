@@ -1,6 +1,4 @@
-########################################################################################################################
-## Application Load Balancer in public subnets with HTTP default listener that redirects traffic to HTTPS
-########################################################################################################################
+# Application Load Balancer in public subnets with HTTP default listener that redirects traffic to HTTPS
 
 resource "aws_alb" "alb" {
   name            = "${var.namespace}-ALB-${var.environment}"
@@ -12,9 +10,7 @@ resource "aws_alb" "alb" {
   }
 }
 
-########################################################################################################################
-## Default HTTPS listener that blocks all traffic without valid custom origin header
-########################################################################################################################
+# Default HTTPS listener that blocks all traffic without valid custom origin header
 
 resource "aws_alb_listener" "alb_default_listener_https" {
   load_balancer_arn = aws_alb.alb.arn
@@ -40,9 +36,7 @@ resource "aws_alb_listener" "alb_default_listener_https" {
   # depends_on = [aws_acm_certificate.alb_certificate]
 }
 
-########################################################################################################################
-## HTTPS Listener Rule to only allow traffic with a valid custom origin header coming from CloudFront
-########################################################################################################################
+# HTTPS Listener Rule to only allow traffic with a valid custom origin header coming from CloudFront
 
 resource "aws_alb_listener_rule" "fargate_https_listener_rule" {
   count = var.launch_type == "fargate" ? 1 : 0

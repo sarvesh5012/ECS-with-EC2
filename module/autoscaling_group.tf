@@ -1,6 +1,4 @@
-########################################################################################################################
-## Creates an ASG linked with our main VPC
-########################################################################################################################
+# Creates an ASG linked with our main VPC
 
 resource "aws_autoscaling_group" "ecs_autoscaling_group" {
   count = var.launch_type == "ec2" ? 1 : 0
