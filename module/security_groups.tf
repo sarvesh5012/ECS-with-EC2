@@ -1,40 +1,40 @@
 # SG for EC2 instances
 
-resource "aws_security_group" "ec2" {
-  count = var.launch_type == "ec2" ? 1 : 0
-  name        = "${var.namespace}_EC2_Instance_SecurityGroup_${var.environment}"
-  description = "Security group for EC2 instances in ECS cluster"
-  vpc_id      = aws_vpc.default.id
+# resource "aws_security_group" "ec2" {
+#   count = var.launch_type == "ec2" ? 1 : 0
+#   name        = "${var.namespace}_EC2_Instance_SecurityGroup_${var.environment}"
+#   description = "Security group for EC2 instances in ECS cluster"
+#   vpc_id      = aws_vpc.default.id
 
-  ingress {
-    description     = "Allow ingress traffic from ALB on HTTP on ephemeral ports"
-    from_port       = 1024
-    to_port         = 65535
-    protocol        = "tcp"
-    security_groups = [aws_security_group.alb.id]
-  }
+#   ingress {
+#     description     = "Allow ingress traffic from ALB on HTTP on ephemeral ports"
+#     from_port       = 1024
+#     to_port         = 65535
+#     protocol        = "tcp"
+#     security_groups = [aws_security_group.alb.id]
+#   }
 
-  ingress {
-    description     = "Allow SSH ingress traffic from bastion host"
-    from_port       = 22
-    to_port         = 22
-    protocol        = "tcp"
-    security_groups = [aws_security_group.bastion_host[0].id]
-  }
+#   ingress {
+#     description     = "Allow SSH ingress traffic from bastion host"
+#     from_port       = 22
+#     to_port         = 22
+#     protocol        = "tcp"
+#     security_groups = [aws_security_group.bastion_host[0].id]
+#   }
 
-  egress {
-    description = "Allow all egress traffic"
-    from_port   = 0
-    to_port     = 0
-    protocol    = -1
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+#   egress {
+#     description = "Allow all egress traffic"
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = -1
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
 
-  tags = {
-    Name     = "${var.namespace}_EC2_Instance_SecurityGroup_${var.environment}"
-    Scenario = var.scenario
-  }
-}
+#   tags = {
+#     Name     = "${var.namespace}_EC2_Instance_SecurityGroup_${var.environment}"
+#     Scenario = var.scenario
+#   }
+# }
 
 # SG for ALB
 
@@ -77,15 +77,16 @@ resource "aws_security_group" "alb" {
 # SG for ECS Container Instances
 
 resource "aws_security_group" "ecs_container_instance" {
-  count = var.launch_type == "fargate" ? 1 : 0
+  # count = var.launch_type == "FARGATE" ? 1 : 0
+  for_each = var.containers
   name        = "${var.namespace}_ECS_Task_SecurityGroup_${var.environment}"
   description = "Security group for ECS task running on Fargate"
   vpc_id      = aws_vpc.default.id
 
   ingress {
     description     = "Allow ingress traffic from ALB on HTTP only"
-    from_port       = var.container_port
-    to_port         = var.container_port
+    from_port       = each.value.container_port
+    to_port         = each.value.container_port
     protocol        = "tcp"
     security_groups = [aws_security_group.alb.id]
   }

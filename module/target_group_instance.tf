@@ -4,7 +4,7 @@ resource "aws_alb_target_group" "ec2_service_target_group" {
   # count = var.launch_type == "ec2" ? 1 : 0
   for_each = var.containers
   name                 = "${var.namespace}-TargetGroup-${var.environment}"
-  port                 = esch.value.container_port
+  port                 = each.value.container_port
   protocol             = "HTTP"
   vpc_id               = aws_vpc.default.id
   deregistration_delay = 5
