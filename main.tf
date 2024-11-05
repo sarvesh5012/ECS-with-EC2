@@ -3,7 +3,7 @@
 module "ecs_infrastructure" {
   source                                      = "./module"
   for_each                                    = var.containers
-  namespace                                   = each.value.namespace
+  namespace                                   = var.namespace
   region                                      = var.region
   ecs_task_desired_count                      = each.value.ecs_task_desired_count
   container_port                              = each.value.container_port
