@@ -26,8 +26,7 @@ module "ecs_infrastructure" {
   instance_type       = var.instance_type
 
     # ECS variables
-  
-  ecs_task_desired_count                      = var.ecs_task_desired_count
+  containers = var.containers
   ecs_task_min_count                          = var.ecs_task_min_count
   ecs_task_max_count                          = var.ecs_task_max_count
   ecs_task_deployment_minimum_healthy_percent = var.ecs_task_deployment_minimum_healthy_percent
@@ -37,9 +36,6 @@ module "ecs_infrastructure" {
   maximum_scaling_step_size                   = var.maximum_scaling_step_size
   minimum_scaling_step_size                   = var.minimum_scaling_step_size
   target_capacity                             = var.target_capacity
-  container_port                              = var.container_port
-  cpu_units                                   = var.cpu_units
-  memory                                      = var.memory
 
     # Cloudwatch
   
@@ -56,11 +52,11 @@ module "ecs_infrastructure" {
 
     # ALB
   
-  custom_origin_host_header = var.custom_origin_host_header
+  # custom_origin_host_header = var.custom_origin_host_header
   healthcheck_endpoint      = var.healthcheck_endpoint
   healthcheck_matcher       = var.healthcheck_matcher
   aws_acm_certificate_arn   = var.aws_acm_certificate_arn
 
 
-  launch_type = var.launch_type
+  launch_type = "FARGATE"
 }

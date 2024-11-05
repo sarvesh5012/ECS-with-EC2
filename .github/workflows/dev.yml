@@ -4,10 +4,10 @@ on:
   # Trigger the workflow on push to the main branch or pull request
   push:
     branches:
-      - updated_filestructure
+      - sarvesh_finalinputs
   pull_request:
     branches:
-      - updated_filestructure
+      - sarvesh_finalinputs
 
 jobs:
   terraform:

@@ -11,10 +11,10 @@ variable "domain_name" {
   type        = string
 }
 
-variable "service_name" {
-  description = "A Docker image-compatible name for the service"
-  type        = string
-}
+# variable "service_name" {
+#   description = "A Docker image-compatible name for the service"
+#   type        = string
+# }
 
 variable "scenario" {
   description = "Scenario name for tags"
@@ -135,23 +135,23 @@ variable "target_capacity" {
   type        = number
 }
 
-variable "container_port" {
-  description = "Port of the container"
-  type        = number
-  default     = 3000
-}
+# variable "container_port" {
+#   description = "Port of the container"
+#   type        = number
+#   default     = 3000
+# }
 
-variable "cpu_units" {
-  description = "Amount of CPU units for a single ECS task"
-  default     = 100
-  type        = number
-}
+# variable "cpu_units" {
+#   description = "Amount of CPU units for a single ECS task"
+#   default     = 100
+#   type        = number
+# }
 
-variable "memory" {
-  description = "Amount of memory in MB for a single ECS task"
-  default     = 256
-  type        = number
-}
+# variable "memory" {
+#   description = "Amount of memory in MB for a single ECS task"
+#   default     = 256
+#   type        = number
+# }
 
 # Cloudwatch
 
@@ -169,10 +169,10 @@ variable "retention_in_days" {
 #   type        = bool
 # }
 
-variable "image_uri" {
-  description = "nginx"
-  type        = string
-}
+# variable "image_uri" {
+#   description = "nginx"
+#   type        = string
+# }
 
 # Autoscaling Group
 
@@ -190,11 +190,11 @@ variable "autoscaling_min_size" {
 
 # ALB
 
-variable "custom_origin_host_header" {
-  description = "Custom header to ensure communication only through CloudFront"
-  default     = "dev"
-  type        = string
-}
+# variable "custom_origin_host_header" {
+#   description = "Custom header to ensure communication only through CloudFront"
+#   default     = "dev"
+#   type        = string
+# }
 
 variable "healthcheck_endpoint" {
   description = "Endpoint for ALB healthcheck"
@@ -219,4 +219,10 @@ variable "aws_acm_certificate_arn" {
 variable "launch_type" {
   type = string
   default = "fargate"
+}
+
+
+variable "containers" {
+  type = map(any)
+  default = {}
 }

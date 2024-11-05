@@ -10,6 +10,22 @@ resource "aws_alb" "alb" {
   }
 }
 
+resource "aws_lb_listener" "alb_http" {
+    load_balancer_arn = aws_alb.alb.arn
+    port              = "80"
+    protocol          = "HTTP"
+    default_action {
+    type = "redirect"
+    redirect {
+        port        = "443"
+        protocol    = "HTTPS"
+        status_code = "HTTP_301"
+        }
+    }
+}
+
+
+
 # Default HTTPS listener that blocks all traffic without valid custom origin header
 
 resource "aws_alb_listener" "alb_default_listener_https" {
@@ -38,31 +54,32 @@ resource "aws_alb_listener" "alb_default_listener_https" {
 
 # HTTPS Listener Rule to only allow traffic with a valid custom origin header coming from CloudFront
 
-resource "aws_alb_listener_rule" "fargate_https_listener_rule" {
-  count = var.launch_type == "fargate" ? 1 : 0
-  listener_arn = aws_alb_listener.alb_default_listener_https.arn
+# resource "aws_alb_listener_rule" "fargate_https_listener_rule" {
+#   count = var.launch_type == "fargate" ? 1 : 0
+#   listener_arn = aws_alb_listener.alb_default_listener_https.arn
 
-  action {
-    type             = "forward"
-    target_group_arn = aws_alb_target_group.fargate_service_target_group[0].arn
-  }
+#   action {
+#     type             = "forward"
+#     target_group_arn = aws_alb_target_group.fargate_service_target_group[0].arn
+#   }
 
-  condition {
-    host_header {
-      values = ["${var.environment}.${var.domain_name}"]
-    }
-  }
+#   condition {
+#     host_header {
+#       values = ["${var.environment}.${var.domain_name}"]
+#     }
+#   }
 
   
 
-  tags = {
-    Scenario = var.scenario
-  }
-}
+#   tags = {
+#     Scenario = var.scenario
+#   }
+# }
 
 
 resource "aws_alb_listener_rule" "ec2_https_listener_rule" {
-  count = var.launch_type == "ec2" ? 1 : 0
+  # count = var.launch_type == "ec2" ? 1 : 0
+  for_each = var.containers
   listener_arn = aws_alb_listener.alb_default_listener_https.arn
 
   action {
@@ -72,7 +89,7 @@ resource "aws_alb_listener_rule" "ec2_https_listener_rule" {
 
   condition {
     host_header {
-      values = ["${var.environment}.${var.domain_name}"]
+      values = ["${each.value.custom_origin_host_header}"]
     }
   }
 

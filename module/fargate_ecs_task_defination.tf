@@ -1,25 +1,26 @@
 # Fargate
 
 resource "aws_ecs_task_definition" "fargate_default" {
-  count = var.launch_type == "fargate" ? 1 : 0
-  family                   = "${var.namespace}_ECS_TaskDefinition_${var.environment}"
+  # count = var.launch_type == "fargate" ? 1 : 0
+  for_each =var.containers
+  family                   = "${var.service_name}_Tdf_${var.environment}"
   network_mode             = "awsvpc"
-  requires_compatibilities = ["FARGATE"]
+  requires_compatibilities = ["${var.launch_type}"]
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
-  cpu                      = var.cpu_units
-  memory                   = var.memory
+  cpu                      = each.value.cpu_units
+  memory                   = each.value.memory
 
   container_definitions = jsonencode([
     {
-      name         = var.service_name
-      image        = var.image_uri
-      cpu          = var.cpu_units
-      memory       = var.memory
+      name         = each.value.service_name
+      image        = each.value.image_uri
+      cpu          = each.value.cpu_units
+      memory       = each.value.memory
       essential    = true
       portMappings = [
         {
-          containerPort = var.container_port
-          hostPort      = var.container_port
+          containerPort = each.value.container_port
+          hostPort      = each.value.container_port
           protocol      = "tcp"
         }
       ]
