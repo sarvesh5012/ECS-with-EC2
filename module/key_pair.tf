@@ -4,10 +4,10 @@ data "aws_key_pair" "example" {
   key_name           = "KEY00"
   include_public_key = true
 
-  # filter {
-  #   name   = "tag:Component"
-  #   values = ["web"]
-  # }
+  filter {
+    name   = "tag:env"
+    values = ["dev"]
+  }
 }
 
 output "fingerprint" {
