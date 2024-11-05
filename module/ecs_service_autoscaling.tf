@@ -4,7 +4,7 @@ resource "aws_appautoscaling_target" "fargate_ecs_target" {
   count = var.launch_type == "fargate" ? 1 : 0
   max_capacity       = var.ecs_task_max_count
   min_capacity       = var.ecs_task_min_count
-  resource_id        = "service/${aws_ecs_cluster.default.name}/${aws_ecs_service.fargate_service.name}"
+  resource_id        = "service/${aws_ecs_cluster.default.name}/${aws_ecs_service.fargate_service[0].name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }
@@ -13,7 +13,7 @@ resource "aws_appautoscaling_target" "ec2_ecs_target" {
   count = var.launch_type == "ec2" ? 1 : 0
   max_capacity       = var.ecs_task_max_count
   min_capacity       = var.ecs_task_min_count
-  resource_id        = "service/${aws_ecs_cluster.default.name}/${aws_ecs_service.ec2_service.name}"
+  resource_id        = "service/${aws_ecs_cluster.default.name}/${aws_ecs_service.ec2_service[0].name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }

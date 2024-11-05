@@ -7,9 +7,9 @@ resource "aws_launch_template" "ecs_launch_template" {
   name                   = "${var.namespace}_EC2_LaunchTemplate_${var.environment}"
   image_id               = data.aws_ami.amazon_linux_2.id
   instance_type          = var.instance_type
-  key_name               = aws_key_pair.default.key_name
-  user_data              = base64encode(data.template_file.user_data.rendered)
-  vpc_security_group_ids = [aws_security_group.ec2.id]
+  key_name               = aws_key_pair.default[0].key_name
+  user_data              = base64encode(data.template_file.user_data[0].rendered)
+  vpc_security_group_ids = [aws_security_group.ec2[0].id]
 
   iam_instance_profile {
     arn = aws_iam_instance_profile.ec2_instance_role_profile.arn
