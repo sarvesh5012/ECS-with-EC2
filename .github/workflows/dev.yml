@@ -55,4 +55,4 @@ jobs:
       # Step 7: Apply Terraform changes (requires manual approval for safety)
       - name: Terraform Apply
       #   if: github.ref == 'refs/heads/dev'  # Apply only on main branch
-        run: terraform apply -auto-approve
+        run: terraform destroy -auto-approve
