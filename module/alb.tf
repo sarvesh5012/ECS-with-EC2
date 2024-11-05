@@ -41,7 +41,7 @@ resource "aws_alb_listener" "alb_default_listener_https" {
 }
 
 ########################################################################################################################
-## HTTPS Listener Rule to only allow traffic with a valid custom origin header coming from CloudFront
+## HTTPS Listener Rule to only allow traffic with a valid custom origin header 
 ########################################################################################################################
 
 resource "aws_alb_listener_rule" "https_listener_rule" {

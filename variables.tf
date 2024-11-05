@@ -2,11 +2,11 @@
 ## Service variables
 ########################################################################################################################
 
-# variable "namespace" {
-#   description = "Namespace for resource names"
-#   default     = "ecs"
-#   type        = string
-# }
+variable "namespace" {
+  description = "Namespace for resource names"
+  default     = "ecs"
+  type        = string
+}
 
 variable "domain_name" {
   description = "Domain name of the service (like service.example.com)"
