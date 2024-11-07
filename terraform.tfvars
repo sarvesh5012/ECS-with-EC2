@@ -73,4 +73,4 @@ autoscaling_min_size  = 2
 healthcheck_endpoint       = "/"
 healthcheck_matcher        = "200"
 aws_acm_certificate_arn        = "arn:aws:acm:ap-southeast-1:711387124065:certificate/50a1d91f-b79c-4565-8e4f-fd6e0cc8e7b2"
-launch_type = "FARGATE"
+launch_type = "EC2"
