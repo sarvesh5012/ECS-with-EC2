@@ -43,6 +43,13 @@ resource "aws_security_group" "alb" {
   description = "Security group for ALB"
   vpc_id      = aws_vpc.default.id
 
+  ingress {
+     description     = "Allow all traffic"
+     from_port       = 0
+     to_port         = 65535
+     protocol        = "tcp"
+   }
+
   egress {
     description = "Allow all egress traffic"
     from_port   = 0
