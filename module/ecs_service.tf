@@ -24,7 +24,7 @@ resource "aws_ecs_service" "ec2_service" {
   }
 
   lifecycle {
-    ignore_changes = [desired_count]
+    ignore_changes = [task_definition]
   }
 
   tags = {
