@@ -66,7 +66,7 @@ resource "aws_iam_role_policy" "ecs_service_role_policy" {
   for_each = var.containers
   name   = "${each.value.service_name}_ecs_policy"
   policy = data.aws_iam_policy_document.ecs_service_role_policy.json
-  role   = aws_iam_role.ecs_service_role.id
+  role   = aws_iam_role.ecs_service_role["${each.key}"].id
 }
 
 data "aws_iam_policy_document" "ecs_service_role_policy" {
