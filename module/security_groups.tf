@@ -47,7 +47,8 @@ resource "aws_security_group" "alb" {
      description     = "Allow all traffic"
      from_port       = 0
      to_port         = 65535
-     protocol        = "tcp"
+     protocol        = "all"
+     cidr_blocks = [0.0.0.0/0]
    }
 
   egress {
