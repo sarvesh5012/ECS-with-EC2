@@ -41,7 +41,8 @@ data "aws_iam_policy_document" "ec2_instance_role_policy" {
 # Create service-linked role used by the ECS Service to manage the ECS Cluster
 
 resource "aws_iam_role" "ecs_service_role" {
-  name               = "${var.namespace}_ECS_ServiceRole_${var.environment}"
+  for_each = var.containers
+  name               = "${each.value.service_name}_ecs_role"
   assume_role_policy = data.aws_iam_policy_document.ecs_service_policy.json
 
   tags = {
@@ -62,7 +63,8 @@ data "aws_iam_policy_document" "ecs_service_policy" {
 }
 
 resource "aws_iam_role_policy" "ecs_service_role_policy" {
-  name   = "${var.namespace}_ECS_ServiceRolePolicy_${var.environment}"
+  for_each = var.containers
+  name   = "${each.value.service_name}_ecs_policy"
   policy = data.aws_iam_policy_document.ecs_service_role_policy.json
   role   = aws_iam_role.ecs_service_role.id
 }
