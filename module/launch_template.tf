@@ -9,7 +9,9 @@ resource "aws_launch_template" "ecs_launch_template" {
   instance_type          = var.instance_type
   key_name               = "KEY00"
   user_data              = base64encode(data.template_file.user_data.rendered)
-  vpc_security_group_ids = [aws_security_group.ecs_container_instance[count.index].id]
+  #vpc_security_group_ids = [aws_security_group.ecs_container_instance[count.index].id]
+  vpc_security_group_ids = values(aws_security_group.ecs_container_instance)[*].id
+
 
   iam_instance_profile {
     arn = aws_iam_instance_profile.ec2_instance_role_profile.arn
