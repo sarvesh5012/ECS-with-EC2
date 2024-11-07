@@ -80,7 +80,7 @@ resource "aws_security_group" "ecs_container_instance" {
   # count = var.launch_type == "FARGATE" ? 1 : 0
   for_each = var.containers
   depends_on = [ aws_security_group.alb ]
-  name        = "${var.namespace}_ECS_Task_SecurityGroup_${var.environment}"
+  name        = "${each.value.service_name}_sg_${var.environment}"
   description = "Security group for ECS task running on Fargate"
   vpc_id      = aws_vpc.default.id
 
