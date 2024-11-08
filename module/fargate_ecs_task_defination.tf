@@ -9,6 +9,7 @@ resource "aws_ecs_task_definition" "fargate_default" {
 
   requires_compatibilities = ["${var.launch_type}"]
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn            = var.launch_type == "EC2" ? aws_iam_role.ecs_task_iam_role.arn : null
   cpu                      = each.value.cpu_units
   memory                   = each.value.memory
 
