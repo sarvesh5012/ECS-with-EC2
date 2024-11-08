@@ -17,10 +17,20 @@ resource "aws_ecs_service" "ec2_service" {
     container_port   = each.value.container_port
   }
 
-  network_configuration {
-    security_groups  = [aws_security_group.ecs_container_instance["${each.key}"].id]  # Indexed for Fargate
-    subnets          = aws_subnet.private[*].id
-    assign_public_ip = false
+  #network_configuration {
+  #  security_groups  = [aws_security_group.ecs_container_instance["${each.key}"].id]  # Indexed for Fargate
+  #  subnets          = aws_subnet.private[*].id
+  #  assign_public_ip = false
+  #}
+
+  # Conditionally include network configuration only for FARGATE
+  dynamic "network_configuration" {
+    for_each = var.launch_type == "FARGATE" ? [1] : []
+    content {
+      security_groups  = [aws_security_group.ecs_container_instance[each.key].id]
+      subnets          = aws_subnet.private[*].id
+      assign_public_ip = false
+    }
   }
 
   lifecycle {
