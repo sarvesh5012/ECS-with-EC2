@@ -18,7 +18,7 @@ az_count         = 2
 # EC2 Computing variables
 
 # public_ec2_key   = "my-key-pair"
-instance_type    = "t3.micro"
+instance_type    = "t2.xlarge"
 
 # ECS variables
 
@@ -29,8 +29,8 @@ containers = {
     service_name           = "nginx-container"
     image_uri      = "nginx"
     container_port = 80
-    cpu_units      = 2048
-    memory         = 8192
+    cpu_units      = 1024
+    memory         = 2048
     custom_origin_host_header  = "dev.virtues.agency"
     
   },
@@ -41,14 +41,14 @@ containers = {
     image_uri      = "httpd"
     container_port = 80
     cpu_units      = 1024
-    memory         = 4096
+    memory         = 2048
     custom_origin_host_header  = "dev1.virtues.agency"
     
   }
 }
 
 
-ecs_task_min_count                             = 2
+ecs_task_min_count                             = 1
 ecs_task_max_count                             = 10
 ecs_task_deployment_minimum_healthy_percent    = 50
 ecs_task_deployment_maximum_percent            = 100
