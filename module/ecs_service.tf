@@ -3,7 +3,7 @@ resource "aws_ecs_service" "ec2_service" {
   # count = var.launch_type == "EC2" ? 1 : 0
   for_each = var.containers
   name                               = "${each.value.service_name}"
-  # iam_role                           = aws_iam_role.ecs_service_role.arn
+  iam_role                            = var.launch_type == "EC2" ? aws_iam_role.ecs_service_role[each.key].arn : null
   cluster                            = aws_ecs_cluster.default.id
   task_definition                    = aws_ecs_task_definition.fargate_default["${each.key}"].arn  # Indexed for EC2
   desired_count                      = each.value.ecs_task_desired_count
