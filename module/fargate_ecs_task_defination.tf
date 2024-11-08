@@ -4,7 +4,7 @@ resource "aws_ecs_task_definition" "fargate_default" {
   # count = var.launch_type == "fargate" ? 1 : 0
   for_each =var.containers
   family                   = "${each.value.service_name}_Tdf_${var.environment}"
-  #network_mode             = "awsvpc"
+  network_mode             = var.launch_type == "FARGATE" ? "awsvpc" : "bridge"
   requires_compatibilities = ["${var.launch_type}"]
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
   cpu                      = each.value.cpu_units
