@@ -24,7 +24,7 @@ resource "aws_ecs_task_definition" "fargate_default" {
       portMappings = [
         {
           containerPort = each.value.container_port
-          hostPort      = each.value.container_port
+          hostPort      = 0
           protocol      = "tcp"
         }
       ]
