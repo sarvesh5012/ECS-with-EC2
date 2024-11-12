@@ -18,7 +18,7 @@ az_count         = 2
 # EC2 Computing variables
 
 # public_ec2_key   = "my-key-pair"
-instance_type    = "t2.xlarge"
+instance_type    = "t2.medium"
 
 # ECS variables
 
@@ -29,8 +29,8 @@ containers = {
     service_name           = "nginx-container"
     image_uri      = "nginx"
     container_port = 80
-    cpu_units      = 1024
-    memory         = 2048
+    cpu_units      = 512
+    memory         = 1024
     custom_origin_host_header  = "dev.virtues.agency"
     
   },
@@ -40,8 +40,8 @@ containers = {
     service_name           = "app-container"
     image_uri      = "httpd"
     container_port = 80
-    cpu_units      = 1024
-    memory         = 2048
+    cpu_units      = 512
+    memory         = 1024
     custom_origin_host_header  = "dev1.virtues.agency"
     
   }
