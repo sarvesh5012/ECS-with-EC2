@@ -94,8 +94,10 @@ resource "aws_security_group" "ecs_container_instance" {
 
   ingress {
     description     = "Allow ingress traffic from ALB on HTTP only"
-    from_port       = each.value.container_port
-    to_port         = each.value.container_port
+    #from_port       = each.value.container_port
+    #to_port         = each.value.container_port
+    from_port       = 1024
+    to_port         = 65535
     protocol        = "tcp"
     security_groups = [aws_security_group.alb.id]
   }
