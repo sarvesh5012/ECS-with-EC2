@@ -168,6 +168,12 @@ variable "autoscaling_max_size" {
   type        = number
 }
 
+variable "desired_capacity"  {
+  description = "Provide desired capacity count"
+  default     = 2
+  type        = number
+}    
+
 variable "autoscaling_min_size" {
   description = "Min size of the autoscaling group"
   default     = 2

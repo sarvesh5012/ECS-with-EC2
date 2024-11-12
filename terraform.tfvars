@@ -66,6 +66,7 @@ retention_in_days  = 7
 
 autoscaling_max_size  = 6
 autoscaling_min_size  = 1
+desired_capacity      = 2
 
 # ALB
 

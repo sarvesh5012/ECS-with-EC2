@@ -44,6 +44,7 @@ module "ecs_infrastructure" {
   
   autoscaling_max_size = var.autoscaling_max_size
   autoscaling_min_size = var.autoscaling_min_size
+  desired_capacity     = var.desired_capacity
 
     # ALB
   

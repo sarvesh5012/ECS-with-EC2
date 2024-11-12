@@ -5,6 +5,7 @@ resource "aws_autoscaling_group" "ecs_autoscaling_group" {
   name                  = "${var.namespace}_ASG_${var.environment}"
   max_size              = var.autoscaling_max_size
   min_size              = var.autoscaling_min_size
+  desired_capacity      = var.desired_capacity
   vpc_zone_identifier   = aws_subnet.private.*.id
   health_check_type     = "EC2"
   protect_from_scale_in = true
