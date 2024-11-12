@@ -56,7 +56,7 @@ cpu_target_tracking_desired_value              = 70
 memory_target_tracking_desired_value           = 80
 maximum_scaling_step_size                      = 5
 minimum_scaling_step_size                      = 1
-target_capacity                                = 100
+target_capacity                                = 80
 
 # Cloudwatch
 
