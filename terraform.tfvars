@@ -65,7 +65,7 @@ retention_in_days  = 7
 # Autoscaling Group
 
 autoscaling_max_size  = 6
-autoscaling_min_size  = 2
+autoscaling_min_size  = 1
 
 # ALB
 
