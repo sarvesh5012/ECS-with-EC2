@@ -17,11 +17,14 @@ resource "aws_ecs_service" "ec2_service" {
     container_port   = each.value.container_port
   }
 
-  capacity_provider_strategy {
-    for_each = var.launch_type == "EC2" ? 1 : 0
+  dynamic "capacity_provider_strategy" {
+
+    for_each = var.launch_type == "EC2" ? [1] : []
+    content{
     base              = 2
     capacity_provider = aws_ecs_capacity_provider.cas[0].name
     weight            = 50
+    }
   }
 
   #network_configuration {
