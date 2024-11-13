@@ -29,10 +29,11 @@ containers = {
     service_name           = "nginx-container"
     image_uri      = "nginx"
     container_port = 80
-    cpu_units      = 1024
-    memory         = 256
+    cpu_units      = 768
+    memory         = 768
     custom_origin_host_header  = "dev.virtues.agency"
-    
+    envs = []
+    secrets = []
   },
   container_2 = {
     
@@ -40,9 +41,11 @@ containers = {
     service_name           = "app-container"
     image_uri      = "httpd"
     container_port = 80
-    cpu_units      = 512
-    memory         = 256
+    cpu_units      = 1024
+    memory         = 1024
     custom_origin_host_header  = "dev1.virtues.agency"
+    envs = []
+    secrets = []
     
   }
 }
