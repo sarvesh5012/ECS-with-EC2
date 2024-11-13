@@ -9,7 +9,7 @@ resource "aws_ecs_service" "ec2_service" {
   desired_count                      = each.value.ecs_task_desired_count
   deployment_minimum_healthy_percent = var.ecs_task_deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.ecs_task_deployment_maximum_percent
-  launch_type                        = var.launch_type
+  launch_type                        = var.launch_type == "FARGATE" ? "FARGATE" : null
 
   load_balancer {
     target_group_arn = aws_alb_target_group.ec2_service_target_group["${each.key}"].arn
