@@ -25,4 +25,11 @@ resource "aws_ecs_cluster_capacity_providers" "cas" {
   count = var.launch_type == "EC2" ? 1 : 0
   cluster_name       = aws_ecs_cluster.default.name
   capacity_providers = [aws_ecs_capacity_provider.cas[0].name]
+
+  default_capacity_provider_strategy{
+    for_each = var.launch_type == "EC2" ? 1 : 0
+    base              = 20
+    capacity_provider = aws_ecs_capacity_provider.cas[0].name
+    weight            = 60
+    }
 }
