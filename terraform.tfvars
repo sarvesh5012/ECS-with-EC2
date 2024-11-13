@@ -57,7 +57,7 @@ ecs_task_deployment_minimum_healthy_percent    = 100
 ecs_task_deployment_maximum_percent            = 200
 cpu_target_tracking_desired_value              = 70
 memory_target_tracking_desired_value           = 80
-maximum_scaling_step_size                      = 5
+maximum_scaling_step_size                      = 1
 minimum_scaling_step_size                      = 1
 target_capacity                                = 100
 

@@ -89,7 +89,7 @@ variable "ecs_task_min_count" {
 
 variable "ecs_task_max_count" {
   description = "How many ECS tasks should maximally run in parallel"
-  default     = 10
+  #default     = 10
   type        = number
 }
 
