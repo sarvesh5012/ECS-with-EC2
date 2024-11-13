@@ -3,6 +3,7 @@
 resource "aws_ecs_cluster" "default" {
   name = "${var.namespace}_ECSCluster_${var.environment}"
 
+  capacity_providers = [aws_ecs_capacity_provider.cas.name]
   default_capacity_provider_strategy{
     for_each = var.launch_type == "EC2" ? 1 : 0
     base              = 20
