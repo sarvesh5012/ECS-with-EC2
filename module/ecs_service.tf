@@ -51,7 +51,7 @@ resource "aws_ecs_service" "ec2_service" {
     Scenario = var.scenario
   }
 
-  depends_on = [aws_security_group.ecs_container_instance]
+  depends_on = [aws_security_group.ecs_container_instance], 
 }
 
 
