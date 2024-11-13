@@ -3,11 +3,14 @@
 resource "aws_ecs_cluster" "default" {
   name = "${var.namespace}_ECSCluster_${var.environment}"
 
-  # default_capacity_provider_strategy {
-  #   base              = 20
-  #   capacity_provider = "virtue_ECS_CapacityProvider_dev"
-  #   weight            = 60
-  #   }
+  dynamic "default_capacity_provider_strategy" {
+    for_each = var.launch_type == "EC2" ? [1] : []
+    content{
+    base              = 20
+    capacity_provider = aws_ecs_capacity_provider.cas[0].name
+    weight            = 60
+    }
+    }
 
   tags = {
     Name     = "${var.namespace}_ECSCluster_${var.environment}"
