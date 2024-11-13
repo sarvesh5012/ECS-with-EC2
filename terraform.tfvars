@@ -50,13 +50,13 @@ containers = {
 
 ecs_task_min_count                             = 1
 ecs_task_max_count                             = 10
-ecs_task_deployment_minimum_healthy_percent    = 50
-ecs_task_deployment_maximum_percent            = 100
+ecs_task_deployment_minimum_healthy_percent    = 100
+ecs_task_deployment_maximum_percent            = 200
 cpu_target_tracking_desired_value              = 70
 memory_target_tracking_desired_value           = 80
 maximum_scaling_step_size                      = 5
 minimum_scaling_step_size                      = 1
-target_capacity                                = 80
+target_capacity                                = 100
 
 # Cloudwatch
 
@@ -66,7 +66,7 @@ retention_in_days  = 7
 
 autoscaling_max_size  = 6
 autoscaling_min_size  = 1
-desired_capacity      = 2
+desired_capacity      = 1
 
 # ALB
 
