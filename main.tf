@@ -62,7 +62,7 @@
 # main.tf
 
 locals {
-  yaml_vars = yamldecode(file("variables.yaml"))
+  yaml_vars = yamldecode(file("variables.yml"))
 }
 
 # Define individual local variables to hold values for easy reference
