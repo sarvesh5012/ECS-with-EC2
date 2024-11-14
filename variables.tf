@@ -216,3 +216,36 @@ variable "containers" {
   type = map(any)
   default = {}
 }
+
+
+
+locals {
+  yaml_vars = yamldecode(file("variables.yaml"))
+}
+
+# Use the YAML variables
+variable "namespace" { default = local.yaml_vars["namespace"] }
+variable "scenario" { default = local.yaml_vars["scenario"] }
+variable "environment" { default = local.yaml_vars["environment"] }
+variable "region" { default = local.yaml_vars["region"] }
+variable "vpc_cidr_block" { default = local.yaml_vars["vpc_cidr_block"] }
+variable "az_count" { default = local.yaml_vars["az_count"] }
+variable "instance_type" { default = local.yaml_vars["instance_type"] }
+variable "containers" { default = local.yaml_vars["containers"] }
+variable "ecs_task_min_count" { default = local.yaml_vars["ecs_task_min_count"] }
+variable "ecs_task_max_count" { default = local.yaml_vars["ecs_task_max_count"] }
+variable "ecs_task_deployment_minimum_healthy_percent" { default = local.yaml_vars["ecs_task_deployment_minimum_healthy_percent"] }
+variable "ecs_task_deployment_maximum_percent" { default = local.yaml_vars["ecs_task_deployment_maximum_percent"] }
+variable "cpu_target_tracking_desired_value" { default = local.yaml_vars["cpu_target_tracking_desired_value"] }
+variable "memory_target_tracking_desired_value" { default = local.yaml_vars["memory_target_tracking_desired_value"] }
+variable "maximum_scaling_step_size" { default = local.yaml_vars["maximum_scaling_step_size"] }
+variable "minimum_scaling_step_size" { default = local.yaml_vars["minimum_scaling_step_size"] }
+variable "target_capacity" { default = local.yaml_vars["target_capacity"] }
+variable "retention_in_days" { default = local.yaml_vars["retention_in_days"] }
+variable "autoscaling_max_size" { default = local.yaml_vars["autoscaling_max_size"] }
+variable "autoscaling_min_size" { default = local.yaml_vars["autoscaling_min_size"] }
+variable "desired_capacity" { default = local.yaml_vars["desired_capacity"] }
+variable "healthcheck_endpoint" { default = local.yaml_vars["healthcheck_endpoint"] }
+variable "healthcheck_matcher" { default = local.yaml_vars["healthcheck_matcher"] }
+variable "aws_acm_certificate_arn" { default = local.yaml_vars["aws_acm_certificate_arn"] }
+variable "launch_type" { default = local.yaml_vars["launch_type"] }
