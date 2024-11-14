@@ -30,5 +30,5 @@ resource "aws_ecs_cluster_capacity_providers" "cas" {
     base              = 20
     capacity_provider = aws_ecs_capacity_provider.cas[0].name
     weight            = 60
-    }
+  }
 }
