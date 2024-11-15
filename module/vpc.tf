@@ -5,20 +5,17 @@ resource "aws_vpc" "default" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 
-  tags = {
+  tags = merge({
     Name     = "${var.namespace}_VPC_${var.environment}"
-  }
-  tags_all = var.tags
+  }, var.tags)
 }
-
 # Create Internet Gateway for egress/ingress connections to resources in the public subnets
 
 resource "aws_internet_gateway" "default" {
   vpc_id = aws_vpc.default.id
 
-  tags = {
+  tags = merge({
     Name     = "${var.namespace}_InternetGateway_${var.environment}"
-    tags_all = var.tags
-  }
-  
+  },var.tags)
+
 }

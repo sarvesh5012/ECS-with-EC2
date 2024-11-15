@@ -4,7 +4,6 @@ resource "aws_alb" "alb" {
   name            = "${var.namespace}-ALB-${var.environment}"
   security_groups = [aws_security_group.alb.id]
   subnets         = aws_subnet.public.*.id
-
   tags_all = var.tags
 }
 
@@ -42,7 +41,6 @@ resource "aws_alb_listener" "alb_default_listener_https" {
       status_code  = "403"
     }
   }
-
   tags_all = var.tags
 
   # depends_on = [aws_acm_certificate.alb_certificate]
@@ -66,9 +64,6 @@ resource "aws_alb_listener_rule" "ec2_https_listener_rule" {
       values = ["${each.value.custom_origin_host_header}"]
     }
   }
-
-  
-
   tags_all = var.tags
 }
 

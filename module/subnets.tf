@@ -11,10 +11,10 @@ resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.default.id
   map_public_ip_on_launch = true
 
-  tags = {
+  tags = merge({
     Name     = "${var.namespace}_PublicSubnet_${count.index}_${var.environment}"
-  }
-  tags_all = var.tags
+  }, var.tags)
+
 }
 
 # Route Table with egress route to the internet
@@ -27,10 +27,10 @@ resource "aws_route_table" "public" {
     gateway_id = aws_internet_gateway.default.id
   }
 
-  tags = {
+  tags =merge( {
     Name     = "${var.namespace}_PublicRouteTable_${var.environment}"
-  }
-  tags_all = var.tags
+  }, var.tags)
+
 }
 
 # Associate Route Table with Public Subnets
@@ -54,10 +54,9 @@ resource "aws_eip" "nat_gateway" {
   count = var.az_count
   # vpc   = true
 
-  tags = {
+  tags = merge({
     Name     = "${var.namespace}_EIP_${count.index}_${var.environment}"
-  }
-  tags_all = var.tags
+  }, var.tags)
 }
 
 # Creates one NAT Gateway per AZ
@@ -67,10 +66,10 @@ resource "aws_nat_gateway" "nat_gateway" {
   subnet_id     = aws_subnet.public[count.index].id
   allocation_id = aws_eip.nat_gateway[count.index].id
 
-  tags = {
+  tags = merge( {
     Name     = "${var.namespace}_NATGateway_${count.index}_${var.environment}"
-  }
-  tags_all = var.tags
+  }, var.tags)
+
 }
 
 # One private subnet per AZ
@@ -81,10 +80,10 @@ resource "aws_subnet" "private" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
   vpc_id            = aws_vpc.default.id
 
-  tags = {
+  tags = merge({
     Name     = "${var.namespace}_PrivateSubnet_${count.index}_${var.environment}"
-  }
-  tags_all = var.tags
+  }, var.tags)
+
 }
 
 # Route to the internet using the NAT Gateway
@@ -98,10 +97,10 @@ resource "aws_route_table" "private" {
     nat_gateway_id = aws_nat_gateway.nat_gateway[count.index].id
   }
 
-  tags = {
+  tags = merge({
     Name     = "${var.namespace}_PrivateRouteTable_${count.index}_${var.environment}"
-  }
-  tags_all = var.tags
+  }, var.tags)
+
 }
 
 # Associate Route Table with Private Subnets

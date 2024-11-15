@@ -34,8 +34,7 @@ resource "aws_instance" "bastion_host" {
   key_name                    = "KEY00"
   vpc_security_group_ids      = [aws_security_group.bastion_host[0].id]
 
-  tags = {
+  tags = merge({
     Name     = "${var.namespace}_EC2_BastionHost_${var.environment}"
-  }
-  tags_all = var.tags
+  }, var.tags)
 }

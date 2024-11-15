@@ -16,11 +16,11 @@ variable "namespace" {
 #   type        = string
 # }
 
-variable "scenario" {
-  description = "Scenario name for tags"
-  default     = "scenario-ecs-ec2"
-  type        = string
-}
+# variable "scenario" {
+#   description = "Scenario name for tags"
+#   default     = "scenario-ecs-ec2"
+#   type        = string
+# }
 
 variable "environment" {
   description = "Environment for deployment (like dev or staging)"
