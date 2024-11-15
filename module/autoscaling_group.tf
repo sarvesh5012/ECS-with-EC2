@@ -9,6 +9,9 @@ resource "aws_autoscaling_group" "ecs_autoscaling_group" {
   vpc_zone_identifier   = aws_subnet.private.*.id
   health_check_type     = "EC2"
   protect_from_scale_in = false
+  ignore_desired_capacity_changes = false
+  health_check_grace_period = 120
+  default_cooldown = 120
 
   enabled_metrics = [
     "GroupMinSize",

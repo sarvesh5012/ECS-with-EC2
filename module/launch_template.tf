@@ -21,7 +21,7 @@ resource "aws_launch_template" "ecs_launch_template" {
     enabled = true
   }
 
-  tags_all = var.tags
+  tags = var.tags
 }
 
 data "template_file" "user_data" {

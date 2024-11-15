@@ -9,7 +9,10 @@ resource "aws_iam_role" "ec2_instance_role" {
 
 resource "aws_iam_role_policy_attachment" "ec2_instance_role_policy" {
   role       = aws_iam_role.ec2_instance_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
+  policy_arn = {
+    AmazonEC2ContainerServiceforEC2Role = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
+    AmazonSSMManagedInstanceCore        = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  } 
 }
 
 resource "aws_iam_instance_profile" "ec2_instance_role_profile" {
