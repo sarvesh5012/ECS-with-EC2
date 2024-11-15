@@ -18,6 +18,7 @@ resource "aws_internet_gateway" "default" {
 
   tags = {
     Name     = "${var.namespace}_InternetGateway_${var.environment}"
+    tags_all = var.tags
   }
-  tags_all = var.tags
+  
 }
