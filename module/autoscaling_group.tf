@@ -40,5 +40,9 @@ resource "aws_autoscaling_group" "ecs_autoscaling_group" {
     propagate_at_launch = true
   }
 
-  tags_all = var.tags
+  tag {
+    key                 = "Environment"
+    propagate_at_launch = false
+    value               = var.environment
+  }
 }
