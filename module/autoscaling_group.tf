@@ -40,5 +40,5 @@ resource "aws_autoscaling_group" "ecs_autoscaling_group" {
     propagate_at_launch = true
   }
 
-  tags = var.tags
+  tags_all = var.tags
 }
