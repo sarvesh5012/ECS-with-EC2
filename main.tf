@@ -92,6 +92,7 @@ locals {
   healthcheck_matcher                     = local.yaml_vars["healthcheck_matcher"]
   aws_acm_certificate_arn                 = local.yaml_vars["aws_acm_certificate_arn"]
   launch_type                             = local.yaml_vars["launch_type"]
+  tags                                    = local.yaml_vars["tags"]
 }
 
 
@@ -124,4 +125,5 @@ module "ecs_infrastructure" {
   healthcheck_matcher                     = local.healthcheck_matcher
   aws_acm_certificate_arn                 = local.aws_acm_certificate_arn
   launch_type                             = local.launch_type
+  tags                                    = local.tags
 }

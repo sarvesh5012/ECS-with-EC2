@@ -16,9 +16,7 @@ resource "aws_ecs_capacity_provider" "cas" {
     }
   }
 
-  tags = {
-    Scenario = var.scenario
-  }
+  tags_all = var.tags
 }
 
 resource "aws_ecs_cluster_capacity_providers" "cas" {

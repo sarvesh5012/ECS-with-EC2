@@ -5,9 +5,7 @@ resource "aws_alb" "alb" {
   security_groups = [aws_security_group.alb.id]
   subnets         = aws_subnet.public.*.id
 
-  tags = {
-    Scenario = var.scenario
-  }
+  tags_all = var.tags
 }
 
 resource "aws_lb_listener" "alb_http" {
@@ -45,9 +43,7 @@ resource "aws_alb_listener" "alb_default_listener_https" {
     }
   }
 
-  tags = {
-    Scenario = var.scenario
-  }
+  tags_all = var.tags
 
   # depends_on = [aws_acm_certificate.alb_certificate]
 }
@@ -73,9 +69,7 @@ resource "aws_alb_listener_rule" "ec2_https_listener_rule" {
 
   
 
-  tags = {
-    Scenario = var.scenario
-  }
+  tags_all = var.tags
 }
 
 

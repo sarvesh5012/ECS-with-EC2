@@ -227,6 +227,9 @@ variable "launch_type" {
   default = "fargate"
 }
 
+variable "tags" {
+  type = map(string)
+}
 
 variable "containers" {
   type = map(any)

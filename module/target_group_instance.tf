@@ -20,9 +20,7 @@ resource "aws_alb_target_group" "ec2_service_target_group" {
     timeout             = 30
   }
 
-  tags = {
-    Scenario = var.scenario
-  }
+  tags_all = var.tags
 
   depends_on = [aws_alb.alb]
 }

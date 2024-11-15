@@ -4,9 +4,7 @@ resource "aws_iam_role" "ec2_instance_role" {
   name               = "${var.namespace}_EC2_InstanceRole_${var.environment}"
   assume_role_policy = data.aws_iam_policy_document.ec2_instance_role_policy.json
 
-  tags = {
-    Scenario = var.scenario
-  }
+  tags_all = var.tags
 }
 
 resource "aws_iam_role_policy_attachment" "ec2_instance_role_policy" {
@@ -18,9 +16,7 @@ resource "aws_iam_instance_profile" "ec2_instance_role_profile" {
   name = "${var.namespace}_EC2_InstanceRoleProfile_${var.environment}"
   role = aws_iam_role.ec2_instance_role.id
 
-  tags = {
-    Scenario = var.scenario
-  }
+  tags_all = var.tags
 }
 
 data "aws_iam_policy_document" "ec2_instance_role_policy" {
@@ -45,9 +41,7 @@ resource "aws_iam_role" "ecs_service_role" {
   name               = "${each.value.service_name}_ecs_role"
   assume_role_policy = data.aws_iam_policy_document.ecs_service_policy.json
 
-  tags = {
-    Scenario = var.scenario
-  }
+  tags_all = var.tags
 }
 
 data "aws_iam_policy_document" "ecs_service_policy" {
@@ -97,9 +91,7 @@ resource "aws_iam_role" "ecs_task_execution_role" {
   name               = "${var.namespace}_ECS_TaskExecutionRole_${var.environment}"
   assume_role_policy = data.aws_iam_policy_document.task_assume_role_policy.json
 
-  tags = {
-    Scenario = var.scenario
-  }
+  tags_all = var.tags
 }
 
 data "aws_iam_policy_document" "task_assume_role_policy" {
@@ -124,7 +116,5 @@ resource "aws_iam_role" "ecs_task_iam_role" {
   name               = "${var.namespace}_ECS_TaskIAMRole_${var.environment}"
   assume_role_policy = data.aws_iam_policy_document.task_assume_role_policy.json
 
-  tags = {
-    Scenario = var.scenario
-  }
+  tags_all = var.tags
 }

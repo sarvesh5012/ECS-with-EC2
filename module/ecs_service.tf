@@ -42,9 +42,7 @@ resource "aws_ecs_service" "ec2_service" {
     ignore_changes = [task_definition]
   }
 
-  tags = {
-    Scenario = var.scenario
-  }
+  tags_all = var.tags
 
   depends_on = [aws_security_group.ecs_container_instance]
 }

@@ -39,7 +39,5 @@ resource "aws_ecs_task_definition" "fargate_default" {
     }
   ])
 
-  tags = {
-    Scenario = var.scenario
-  }
+  tags_all = var.tags
 }
