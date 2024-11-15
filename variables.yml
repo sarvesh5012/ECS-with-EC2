@@ -1,6 +1,6 @@
 # Service variables
 namespace: "virtue"
-scenario: "scenario-ecs-ec2"
+# scenario: "scenario-ecs-ec2"
 environment: "dev"
 
 # AWS credentials

@@ -5,7 +5,6 @@ resource "aws_ecs_cluster" "default" {
 
   tags = {
     Name     = "${var.namespace}_ECSCluster_${var.environment}"
-    Scenario = var.scenario
   }
   tags_all = var.tags
 }

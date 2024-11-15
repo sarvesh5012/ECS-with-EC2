@@ -61,8 +61,8 @@ resource "aws_security_group" "alb" {
 
   tags = {
     Name     = "${var.namespace}_ALB_SecurityGroup_${var.environment}"
-    Scenario = var.scenario
   }
+  tags_all = var.tags
 }
 
 # We only allow incoming traffic on HTTPS from known CloudFront CIDR blocks
@@ -112,6 +112,6 @@ resource "aws_security_group" "ecs_container_instance" {
   
   tags = {
     Name     = "${var.namespace}_ECS_Task_SecurityGroup_${var.environment}"
-    Scenario = var.scenario
   }
+  tags_all = var.tags
 }

@@ -68,7 +68,7 @@ locals {
 # Define individual local variables to hold values for easy reference
 locals {
   namespace                               = local.yaml_vars["namespace"]
-  scenario                                = local.yaml_vars["scenario"]
+  # scenario                                = local.yaml_vars["scenario"]
   environment                             = local.yaml_vars["environment"]
   region                                  = local.yaml_vars["region"]
   vpc_cidr_block                          = local.yaml_vars["vpc_cidr_block"]
@@ -101,7 +101,7 @@ module "ecs_infrastructure" {
   source = "./module"
 
   namespace                               = local.namespace
-  scenario                                = local.scenario
+  # scenario                                = local.scenario
   environment                             = local.environment
   region                                  = local.region
   vpc_cidr_block                          = local.vpc_cidr_block

@@ -13,8 +13,8 @@ resource "aws_subnet" "public" {
 
   tags = {
     Name     = "${var.namespace}_PublicSubnet_${count.index}_${var.environment}"
-    Scenario = var.scenario
   }
+  tags_all = var.tags
 }
 
 # Route Table with egress route to the internet
@@ -29,8 +29,8 @@ resource "aws_route_table" "public" {
 
   tags = {
     Name     = "${var.namespace}_PublicRouteTable_${var.environment}"
-    Scenario = var.scenario
   }
+  tags_all = var.tags
 }
 
 # Associate Route Table with Public Subnets
@@ -56,8 +56,8 @@ resource "aws_eip" "nat_gateway" {
 
   tags = {
     Name     = "${var.namespace}_EIP_${count.index}_${var.environment}"
-    Scenario = var.scenario
   }
+  tags_all = var.tags
 }
 
 # Creates one NAT Gateway per AZ
@@ -69,8 +69,8 @@ resource "aws_nat_gateway" "nat_gateway" {
 
   tags = {
     Name     = "${var.namespace}_NATGateway_${count.index}_${var.environment}"
-    Scenario = var.scenario
   }
+  tags_all = var.tags
 }
 
 # One private subnet per AZ
@@ -83,8 +83,8 @@ resource "aws_subnet" "private" {
 
   tags = {
     Name     = "${var.namespace}_PrivateSubnet_${count.index}_${var.environment}"
-    Scenario = var.scenario
   }
+  tags_all = var.tags
 }
 
 # Route to the internet using the NAT Gateway
@@ -100,8 +100,8 @@ resource "aws_route_table" "private" {
 
   tags = {
     Name     = "${var.namespace}_PrivateRouteTable_${count.index}_${var.environment}"
-    Scenario = var.scenario
   }
+  tags_all = var.tags
 }
 
 # Associate Route Table with Private Subnets

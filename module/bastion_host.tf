@@ -36,6 +36,6 @@ resource "aws_instance" "bastion_host" {
 
   tags = {
     Name     = "${var.namespace}_EC2_BastionHost_${var.environment}"
-    Scenario = var.scenario
   }
+  tags_all = var.tags
 }
