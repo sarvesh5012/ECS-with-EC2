@@ -231,7 +231,7 @@ variable "tags" {
   type = map(string)
 }
 
-# variable "containers" {
-#   type = map(any)
-#   default = {}
-# }
+variable "containers" {
+  type = map(any)
+  default = {}
+}

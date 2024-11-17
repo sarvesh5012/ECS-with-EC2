@@ -27,11 +27,11 @@ containers:
     custom_origin_host_header: "dev.virtues.agency"
     envs: []
     secrets: []
-    tags:
-      - name: 
-        key:
-      - name:
-        key:
+    # tags:
+    #   - name: 
+    #     key:
+    #   - name:
+    #     key:
 
   apache:
     ecs_task_desired_count: 1
@@ -42,17 +42,15 @@ containers:
     memory: 1024
     cpu_target_tracking_desired_value: 70
     memory_target_tracking_desired_value: 80
-    custom_origin_host_header: 
-      - "dev1.virtues.agency"
-      - "dev3.virtues.agency"
+    custom_origin_host_header: "dev1.virtues.agency"
     healthcheck_endpoint: "/" 
     envs: []
     secrets: []
-    tags:
-      - name: 
-        key:
-      - name:
-        key:
+    # tags:
+    #   - name: 
+    #     key:
+    #   - name:
+    #     key:
 
 ecs_task_min_count: 1
 ecs_task_max_count: 10

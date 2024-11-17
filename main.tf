@@ -126,7 +126,4 @@ module "ecs_infrastructure" {
   tags                                    = local.tags
 }
 
-variable "containers" {
-  type = map(any)
-  default = {}
-}
+
