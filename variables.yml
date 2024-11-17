@@ -25,6 +25,7 @@ containers:
     cpu_target_tracking_desired_value: 70
     memory_target_tracking_desired_value: 80
     custom_origin_host_header: "dev.virtues.agency"
+    healthcheck_endpoint: "/"
     envs: []
     secrets: []
     # tags:
