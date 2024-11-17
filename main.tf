@@ -127,3 +127,8 @@ module "ecs_infrastructure" {
   launch_type                             = local.launch_type
   tags                                    = local.tags
 }
+
+variable "containers" {
+  type = map(any)
+  default = {}
+}
