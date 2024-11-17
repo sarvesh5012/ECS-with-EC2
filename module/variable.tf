@@ -105,17 +105,17 @@ variable "ecs_task_deployment_maximum_percent" {
   type        = number
 }
 
-variable "cpu_target_tracking_desired_value" {
-  description = "Target tracking for CPU usage in %"
-  default     = 70
-  type        = number
-}
+# variable "cpu_target_tracking_desired_value" {
+#   description = "Target tracking for CPU usage in %"
+#   default     = 70
+#   type        = number
+# }
 
-variable "memory_target_tracking_desired_value" {
-  description = "Target tracking for memory usage in %"
-  default     = 80
-  type        = number
-}
+# variable "memory_target_tracking_desired_value" {
+#   description = "Target tracking for memory usage in %"
+#   default     = 80
+#   type        = number
+# }
 
 variable "maximum_scaling_step_size" {
   description = "Maximum amount of EC2 instances that should be added on scale-out"
@@ -202,11 +202,11 @@ variable "autoscaling_min_size" {
 #   type        = string
 # }
 
-variable "healthcheck_endpoint" {
-  description = "Endpoint for ALB healthcheck"
-  type        = string
-  default     = "/"
-}
+# variable "healthcheck_endpoint" {
+#   description = "Endpoint for ALB healthcheck"
+#   type        = string
+#   default     = "/"
+# }
 
 variable "healthcheck_matcher" {
   description = "HTTP status code matcher for healthcheck"
