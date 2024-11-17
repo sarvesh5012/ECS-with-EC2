@@ -101,7 +101,7 @@ module "ecs_infrastructure" {
   source = "./module"
 
   namespace                               = local.namespace
-  # scenario                                = local.scenario
+  
   environment                             = local.environment
   region                                  = local.region
   vpc_cidr_block                          = local.vpc_cidr_block
@@ -112,8 +112,7 @@ module "ecs_infrastructure" {
   ecs_task_max_count                      = local.ecs_task_max_count
   ecs_task_deployment_minimum_healthy_percent = local.ecs_task_deployment_minimum_healthy_percent
   ecs_task_deployment_maximum_percent     = local.ecs_task_deployment_maximum_percent
-  cpu_target_tracking_desired_value       = local.cpu_target_tracking_desired_value
-  memory_target_tracking_desired_value    = local.memory_target_tracking_desired_value
+  
   maximum_scaling_step_size               = local.maximum_scaling_step_size
   minimum_scaling_step_size               = local.minimum_scaling_step_size
   target_capacity                         = local.target_capacity
@@ -121,7 +120,7 @@ module "ecs_infrastructure" {
   autoscaling_max_size                    = local.autoscaling_max_size
   autoscaling_min_size                    = local.autoscaling_min_size
   desired_capacity                        = local.desired_capacity
-  healthcheck_endpoint                    = local.healthcheck_endpoint
+  
   healthcheck_matcher                     = local.healthcheck_matcher
   aws_acm_certificate_arn                 = local.aws_acm_certificate_arn
   launch_type                             = local.launch_type
