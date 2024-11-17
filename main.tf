@@ -68,7 +68,7 @@ locals {
 # Define individual local variables to hold values for easy reference
 locals {
   namespace                               = local.yaml_vars["namespace"]
-  # scenario                                = local.yaml_vars["scenario"]
+  
   environment                             = local.yaml_vars["environment"]
   region                                  = local.yaml_vars["region"]
   vpc_cidr_block                          = local.yaml_vars["vpc_cidr_block"]
@@ -79,8 +79,7 @@ locals {
   ecs_task_max_count                      = local.yaml_vars["ecs_task_max_count"]
   ecs_task_deployment_minimum_healthy_percent = local.yaml_vars["ecs_task_deployment_minimum_healthy_percent"]
   ecs_task_deployment_maximum_percent     = local.yaml_vars["ecs_task_deployment_maximum_percent"]
-  cpu_target_tracking_desired_value       = local.yaml_vars["cpu_target_tracking_desired_value"]
-  memory_target_tracking_desired_value    = local.yaml_vars["memory_target_tracking_desired_value"]
+  
   maximum_scaling_step_size               = local.yaml_vars["maximum_scaling_step_size"]
   minimum_scaling_step_size               = local.yaml_vars["minimum_scaling_step_size"]
   target_capacity                         = local.yaml_vars["target_capacity"]
@@ -88,7 +87,7 @@ locals {
   autoscaling_max_size                    = local.yaml_vars["autoscaling_max_size"]
   autoscaling_min_size                    = local.yaml_vars["autoscaling_min_size"]
   desired_capacity                        = local.yaml_vars["desired_capacity"]
-  healthcheck_endpoint                    = local.yaml_vars["healthcheck_endpoint"]
+  
   healthcheck_matcher                     = local.yaml_vars["healthcheck_matcher"]
   aws_acm_certificate_arn                 = local.yaml_vars["aws_acm_certificate_arn"]
   launch_type                             = local.yaml_vars["launch_type"]
