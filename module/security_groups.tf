@@ -101,6 +101,14 @@ resource "aws_security_group" "ecs_container_instance" {
     security_groups = [aws_security_group.alb.id]
   }
 
+  ingress {
+    description     = "Allow SSH ingress traffic from bastion host"
+    from_port       = 22
+    to_port         = 22
+    protocol        = "tcp"
+    security_groups = [aws_security_group.bastion_host[0].id]
+  }
+
   egress {
     description = "Allow all egress traffic"
     from_port   = 0
