@@ -14,13 +14,13 @@ resource "aws_alb_target_group" "ec2_service_target_group" {
     unhealthy_threshold = 2
     interval            = 60
     matcher             = var.healthcheck_matcher
-    path                = var.healthcheck_endpoint
+    path                = each.value.healthcheck_endpoint
     port                = "traffic-port"
     protocol            = "HTTP"
     timeout             = 30
   }
 
-  tags_all = var.tags
+   
 
   depends_on = [aws_alb.alb]
 }

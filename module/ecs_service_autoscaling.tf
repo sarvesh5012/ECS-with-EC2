@@ -25,7 +25,7 @@ resource "aws_appautoscaling_policy" "ec2_ecs_cpu_policy" {
   service_namespace  = aws_appautoscaling_target.ec2_ecs_target["${each.key}"].service_namespace
 
   target_tracking_scaling_policy_configuration {
-    target_value = var.cpu_target_tracking_desired_value
+    target_value = each.value.cpu_target_tracking_desired_value
 
     predefined_metric_specification {
       predefined_metric_type = "ECSServiceAverageCPUUtilization"
@@ -45,7 +45,7 @@ resource "aws_appautoscaling_policy" "ec2_ecs_targetecs_memory_policy" {
   service_namespace  = aws_appautoscaling_target.ec2_ecs_target["${each.key}"].service_namespace
 
   target_tracking_scaling_policy_configuration {
-    target_value = var.memory_target_tracking_desired_value
+    target_value = each.value.memory_target_tracking_desired_value
 
     predefined_metric_specification {
       predefined_metric_type = "ECSServiceAverageMemoryUtilization"

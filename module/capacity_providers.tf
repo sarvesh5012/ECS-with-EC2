@@ -15,7 +15,7 @@ resource "aws_ecs_capacity_provider" "cas" {
       target_capacity           = var.target_capacity
     }
   }
-  tags_all = var.tags
+   
 }
 
 resource "aws_ecs_cluster_capacity_providers" "cas" {

@@ -22,7 +22,7 @@ resource "aws_security_group" "bastion_host" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags_all = var.tags
+   
 }
 
 resource "aws_instance" "bastion_host" {
