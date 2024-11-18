@@ -10,6 +10,7 @@ resource "aws_alb_target_group" "ec2_service_target_group" {
   deregistration_delay = 5
   target_type = var.launch_type == "FARGATE" ? "ip" : "instance"
   health_check {
+    enabled = each.value.health_check_enabled
     healthy_threshold   = 2
     unhealthy_threshold = 2
     interval            = 60

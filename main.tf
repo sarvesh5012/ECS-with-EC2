@@ -91,6 +91,7 @@ locals {
   healthcheck_matcher                     = local.yaml_vars["healthcheck_matcher"]
   aws_acm_certificate_arn                 = local.yaml_vars["aws_acm_certificate_arn"]
   launch_type                             = local.yaml_vars["launch_type"]
+  enable_cross_zone_load_balancing        = local.yaml_vars["enable_cross_zone_load_balancing"]
   tags                                    = local.yaml_vars["tags"]
 }
 
@@ -123,6 +124,7 @@ module "ecs_infrastructure" {
   healthcheck_matcher                     = local.healthcheck_matcher
   aws_acm_certificate_arn                 = local.aws_acm_certificate_arn
   launch_type                             = local.launch_type
+  enable_cross_zone_load_balancing        = local.enable_cross_zone_load_balancing
   tags                                    = local.tags
 }
 

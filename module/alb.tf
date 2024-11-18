@@ -4,6 +4,7 @@ resource "aws_alb" "alb" {
   name            = "${var.namespace}-ALB-${var.environment}"
   security_groups = [aws_security_group.alb.id]
   subnets         = aws_subnet.public.*.id
+  enable_cross_zone_load_balancing = var.enable_cross_zone_load_balancing
    
 }
 

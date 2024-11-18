@@ -21,17 +21,18 @@ containers:
     container_port: 80
     cpu_units: 768
     memory: 768
-    cpu_target_tracking_desired_value: 70
+    cpu_target_tracking_desired_value: 80
     memory_target_tracking_desired_value: 80
     custom_origin_host_header: 
       - "dev.virtues.agency"
       - "dev2.virtues.agency"
     healthcheck_endpoint: "/"
+    health_check_enabled : true
     envs: 
       - key : "ENV_NAME"
         value : "Test-nginx"
     secrets:
-      - name : "ENV_CONFIG"
+      - name : "ENV_SEC"
         valueFrom : "arn_env_config"
     tags:
       - name: 
@@ -45,11 +46,12 @@ containers:
     container_port: 80
     cpu_units: 1024
     memory: 1024
-    cpu_target_tracking_desired_value: 70
-    memory_target_tracking_desired_value: 80
+    cpu_target_tracking_desired_value: 80 #container target_value
+    memory_target_tracking_desired_value: 80 #container target_value
     custom_origin_host_header: 
       - "dev1.virtues.agency"
     healthcheck_endpoint: "/" 
+    health_check_enabled : true
     envs:
       - key : "ENV_NAME"
         value : "Test-apache"
@@ -70,7 +72,7 @@ ecs_task_deployment_minimum_healthy_percent: 100
 ecs_task_deployment_maximum_percent: 200
 maximum_scaling_step_size: 1
 minimum_scaling_step_size: 1
-target_capacity: 100
+target_capacity: 100 #ec2 autoscalling 
 
 # Cloudwatch
 retention_in_days: 7
@@ -84,8 +86,7 @@ desired_capacity: 1
 healthcheck_matcher: "200"
 aws_acm_certificate_arn: "arn:aws:acm:ap-southeast-1:711387124065:certificate/50a1d91f-b79c-4565-8e4f-fd6e0cc8e7b2"
 launch_type: "EC2"
-
+enable_cross_zone_load_balancing : true
 
 tags: 
-  Environment : "dev"
   Terraform : "true"

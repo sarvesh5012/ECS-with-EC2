@@ -45,12 +45,12 @@ jobs:
       #     rm -f module/target_group_instance.tf
 
       # Step 5: Initialize Terraform
-      - name: Terraform Init
-        run: terraform init
+      # - name: Terraform Init
+      #   run: terraform init
 
       # Step 6: Plan Terraform changes
-      - name: Terraform Plan
-        run: terraform plan
+      # - name: Terraform Plan
+      #   run: terraform plan
 
       # Step 7: Apply Terraform changes (requires manual approval for safety)
       # - name: Terraform plan

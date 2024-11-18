@@ -214,6 +214,11 @@ variable "healthcheck_matcher" {
   default     = "200"
 }
 
+variable "enable_cross_zone_load_balancing" {
+  description = "Used for the multi-az deployment"
+  type = bool
+  default = false
+}
 
 variable "aws_acm_certificate_arn" {
   description = "Provide aws acm certificate"
