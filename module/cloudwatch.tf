@@ -2,7 +2,7 @@
 
 resource "aws_cloudwatch_log_group" "log_group" {
   for_each = var.containers
-  name              = "/${lower(var.namespace)}/ecs/${each.value.service_name}"
+  name              = "/${lower(var.namespace)}/ecs/${each.key}"
   retention_in_days = var.retention_in_days
 
    

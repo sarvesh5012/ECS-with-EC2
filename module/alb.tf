@@ -61,7 +61,7 @@ resource "aws_alb_listener_rule" "ec2_https_listener_rule" {
 
   condition {
     host_header {
-      values = ["${each.value.custom_origin_host_header}"]
+      values = each.value.custom_origin_host_header
     }
   }
    

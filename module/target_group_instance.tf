@@ -3,7 +3,7 @@
 resource "aws_alb_target_group" "ec2_service_target_group" {
   # count = var.launch_type == "EC2" ? 1 : 0
   for_each = var.containers
-  name                 = "${each.value.service_name}-${var.environment}"
+  name                 = "${each.key}-${var.environment}"
   port                 = each.value.container_port
   protocol             = "HTTP"
   vpc_id               = aws_vpc.default.id

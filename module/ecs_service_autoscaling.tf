@@ -6,7 +6,7 @@ resource "aws_appautoscaling_target" "ec2_ecs_target" {
   # count = var.launch_type == "EC2" ? 1 : 0
   max_capacity       = var.ecs_task_max_count
   min_capacity       = var.ecs_task_min_count
-  resource_id        = "service/${aws_ecs_cluster.default.name}/${each.value.service_name}"
+  resource_id        = "service/${aws_ecs_cluster.default.name}/${each.key}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
   depends_on = [aws_ecs_service.ec2_service]

@@ -17,17 +17,22 @@ instance_type: "t2.medium"
 containers:
   nginx:
     ecs_task_desired_count: 1
-    service_name: "nginx-container"
     image_uri: "nginx"
     container_port: 80
     cpu_units: 768
     memory: 768
     cpu_target_tracking_desired_value: 70
     memory_target_tracking_desired_value: 80
-    custom_origin_host_header: "dev.virtues.agency"
+    custom_origin_host_header: 
+      - "dev.virtues.agency"
+      - "dev2.virtues.agency"
     healthcheck_endpoint: "/"
-    envs: []
-    secrets: []
+    envs: 
+      - key : "ENV_NAME"
+        value : "Test-nginx"
+    secrets:
+      - name : "ENV_CONFIG"
+      - valueFrom : "arn_env_config"
     tags:
       - name: 
         key:
@@ -36,17 +41,23 @@ containers:
 
   apache:
     ecs_task_desired_count: 1
-    service_name: "nginx-container"
     image_uri: "httpd"
     container_port: 80
     cpu_units: 1024
     memory: 1024
     cpu_target_tracking_desired_value: 70
     memory_target_tracking_desired_value: 80
-    custom_origin_host_header: "dev1.virtues.agency"
+    custom_origin_host_header: 
+      - "dev1.virtues.agency"
     healthcheck_endpoint: "/" 
-    envs: []
-    secrets: []
+    envs:
+      - key : "ENV_NAME"
+        value : "Test-apache"
+
+    secrets: 
+      - name : "DB_PASSWORD"
+        value : "arn_DB_PASSORD"
+
     tags:
       - name: 
         key:

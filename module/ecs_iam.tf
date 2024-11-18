@@ -13,6 +13,12 @@ resource "aws_iam_role_policy_attachment" "ec2_instance_role_policy" {
   
 }
 
+
+resource "aws_iam_role_policy_attachment" "ec2_instance_ssm_policy" {
+  role       = aws_iam_role.ec2_instance_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
 resource "aws_iam_instance_profile" "ec2_instance_role_profile" {
   name = "${var.namespace}_EC2_InstanceRoleProfile_${var.environment}"
   role = aws_iam_role.ec2_instance_role.id
@@ -39,7 +45,7 @@ data "aws_iam_policy_document" "ec2_instance_role_policy" {
 
 resource "aws_iam_role" "ecs_service_role" {
   for_each = var.containers
-  name               = "${each.value.service_name}_ecs_role"
+  name               = "${each.key}_ecs_role"
   assume_role_policy = data.aws_iam_policy_document.ecs_service_policy.json
 
    
@@ -59,7 +65,7 @@ data "aws_iam_policy_document" "ecs_service_policy" {
 
 resource "aws_iam_role_policy" "ecs_service_role_policy" {
   for_each = var.containers
-  name   = "${each.value.service_name}_ecs_policy"
+  name   = "${each.key}_ecs_policy"
   policy = data.aws_iam_policy_document.ecs_service_role_policy.json
   role   = aws_iam_role.ecs_service_role["${each.key}"].id
 }

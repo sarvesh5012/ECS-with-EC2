@@ -3,7 +3,7 @@
 resource "aws_ecs_task_definition" "fargate_default" {
   # count = var.launch_type == "fargate" ? 1 : 0
   for_each =var.containers
-  family                   = "${each.value.service_name}_Tdf_${var.environment}"
+  family                   = "${each.key}_Tdf_${var.environment}"
 
   network_mode             = var.launch_type == "FARGATE" ? "awsvpc" : "bridge"
 
@@ -16,11 +16,18 @@ resource "aws_ecs_task_definition" "fargate_default" {
 
   container_definitions = jsonencode([
     {
-      name         = each.value.service_name
+      name         = each.key
       image        = each.value.image_uri
       cpu          = each.value.cpu_units
       memory       = each.value.memory
       essential    = true
+      env = each.value.envs
+      secrets = [
+        {
+          name = "ENV_CONFIG"
+          valueFrom = aws_secretsmanager_secret.config_secret[each.key].arn
+        }
+      ]
       portMappings = [
         {
           containerPort = each.value.container_port
@@ -33,7 +40,7 @@ resource "aws_ecs_task_definition" "fargate_default" {
         options   = {
           "awslogs-group"         = aws_cloudwatch_log_group.log_group["${each.key}"].name
           "awslogs-region"        = var.region
-          "awslogs-stream-prefix" = "${each.value.service_name}-log-stream-${var.environment}"
+          "awslogs-stream-prefix" = "${each.key}-log-stream-${var.environment}"
         }
       }
     }

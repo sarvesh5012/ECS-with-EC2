@@ -2,7 +2,7 @@
 resource "aws_ecs_service" "ec2_service" {
   # count = var.launch_type == "EC2" ? 1 : 0
   for_each = var.containers
-  name                               = "${each.value.service_name}"
+  name                               = "${each.key}"
   iam_role                            = var.launch_type == "EC2" ? aws_iam_role.ecs_service_role[each.key].arn : null
   cluster                            = aws_ecs_cluster.default.id
   task_definition                    = aws_ecs_task_definition.fargate_default["${each.key}"].arn  # Indexed for EC2
@@ -13,7 +13,7 @@ resource "aws_ecs_service" "ec2_service" {
 
   load_balancer {
     target_group_arn = aws_alb_target_group.ec2_service_target_group["${each.key}"].arn
-    container_name   = each.value.service_name
+    container_name   = each.key
     container_port   = each.value.container_port
   }
 
@@ -38,9 +38,9 @@ resource "aws_ecs_service" "ec2_service" {
     }
   }
 
-  lifecycle {
-    ignore_changes = [task_definition]
-  }
+  # lifecycle {
+  #   ignore_changes = [task_definition]
+  # }
 
    
 

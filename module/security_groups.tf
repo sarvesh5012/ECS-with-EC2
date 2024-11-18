@@ -87,7 +87,7 @@ resource "aws_security_group" "ecs_container_instance" {
   # count = var.launch_type == "FARGATE" ? 1 : 0
   for_each = var.containers
   depends_on = [ aws_security_group.alb ]
-  name        = "${each.value.service_name}_sg_${var.environment}"
+  name        = "${each.key}_sg_${var.environment}"
   description = "Security group for ECS task running on Fargate"
   vpc_id      = aws_vpc.default.id
 
@@ -101,13 +101,6 @@ resource "aws_security_group" "ecs_container_instance" {
     security_groups = [aws_security_group.alb.id]
   }
 
-  ingress {
-    description     = "Allow SSH ingress traffic from bastion host"
-    from_port       = 22
-    to_port         = 22
-    protocol        = "tcp"
-    security_groups = [aws_security_group.bastion_host[0].id]
-  }
 
   egress {
     description = "Allow all egress traffic"
