@@ -22,12 +22,13 @@ resource "aws_ecs_task_definition" "fargate_default" {
       memory       = each.value.memory
       essential    = true
       env = each.value.envs
-      secrets = [
+      secrets = concat(
+        [
         {
           name = "ENV_CONFIG"
           valueFrom = aws_secretsmanager_secret.config_secret[each.key].arn
         }
-      ]
+      ], each.value.secrets)
       portMappings = [
         {
           containerPort = each.value.container_port

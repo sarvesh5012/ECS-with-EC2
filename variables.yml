@@ -32,7 +32,7 @@ containers:
         value : "Test-nginx"
     secrets:
       - name : "ENV_CONFIG"
-      - valueFrom : "arn_env_config"
+        valueFrom : "arn_env_config"
     tags:
       - name: 
         key:
@@ -56,7 +56,7 @@ containers:
 
     secrets: 
       - name : "DB_PASSWORD"
-        value : "arn_DB_PASSORD"
+        valueFrom : "arn_DB_PASSORD"
 
     tags:
       - name: 
