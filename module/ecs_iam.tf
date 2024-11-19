@@ -4,13 +4,13 @@ resource "aws_iam_role" "ec2_instance_role" {
   name               = "${var.namespace}_EC2_InstanceRole_${var.environment}"
   assume_role_policy = data.aws_iam_policy_document.ec2_instance_role_policy.json
 
-   
+
 }
 
 resource "aws_iam_role_policy_attachment" "ec2_instance_role_policy" {
   role       = aws_iam_role.ec2_instance_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
-  
+
 }
 
 
@@ -23,7 +23,7 @@ resource "aws_iam_instance_profile" "ec2_instance_role_profile" {
   name = "${var.namespace}_EC2_InstanceRoleProfile_${var.environment}"
   role = aws_iam_role.ec2_instance_role.id
 
-   
+
 }
 
 data "aws_iam_policy_document" "ec2_instance_role_policy" {
@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "ec2_instance_role_policy" {
     effect  = "Allow"
 
     principals {
-      type        = "Service"
+      type = "Service"
       identifiers = [
         "ec2.amazonaws.com",
         "ecs.amazonaws.com"
@@ -44,11 +44,11 @@ data "aws_iam_policy_document" "ec2_instance_role_policy" {
 # Create service-linked role used by the ECS Service to manage the ECS Cluster
 
 resource "aws_iam_role" "ecs_service_role" {
-  for_each = var.containers
+  for_each           = var.containers
   name               = "${each.key}_ecs_role"
   assume_role_policy = data.aws_iam_policy_document.ecs_service_policy.json
 
-   
+
 }
 
 data "aws_iam_policy_document" "ecs_service_policy" {
@@ -58,21 +58,21 @@ data "aws_iam_policy_document" "ecs_service_policy" {
 
     principals {
       type        = "Service"
-      identifiers = ["ecs.amazonaws.com",]
+      identifiers = ["ecs.amazonaws.com", ]
     }
   }
 }
 
 resource "aws_iam_role_policy" "ecs_service_role_policy" {
   for_each = var.containers
-  name   = "${each.key}_ecs_policy"
-  policy = data.aws_iam_policy_document.ecs_service_role_policy.json
-  role   = aws_iam_role.ecs_service_role["${each.key}"].id
+  name     = "${each.key}_ecs_policy"
+  policy   = data.aws_iam_policy_document.ecs_service_role_policy.json
+  role     = aws_iam_role.ecs_service_role["${each.key}"].id
 }
 
 data "aws_iam_policy_document" "ecs_service_role_policy" {
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = [
       "ec2:AuthorizeSecurityGroupIngress",
       "ec2:Describe*",
@@ -98,7 +98,7 @@ resource "aws_iam_role" "ecs_task_execution_role" {
   name               = "${var.namespace}_ECS_TaskExecutionRole_${var.environment}"
   assume_role_policy = data.aws_iam_policy_document.task_assume_role_policy.json
 
-   
+
 }
 
 data "aws_iam_policy_document" "task_assume_role_policy" {
@@ -123,5 +123,5 @@ resource "aws_iam_role" "ecs_task_iam_role" {
   name               = "${var.namespace}_ECS_TaskIAMRole_${var.environment}"
   assume_role_policy = data.aws_iam_policy_document.task_assume_role_policy.json
 
-   
+
 }

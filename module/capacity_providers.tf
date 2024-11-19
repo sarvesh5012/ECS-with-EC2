@@ -2,7 +2,7 @@
 
 resource "aws_ecs_capacity_provider" "cas" {
   count = var.launch_type == "EC2" ? 1 : 0
-  name = "${var.namespace}_ECS_CapacityProvider_${var.environment}"
+  name  = "${var.namespace}_ECS_CapacityProvider_${var.environment}"
 
   auto_scaling_group_provider {
     auto_scaling_group_arn         = aws_autoscaling_group.ecs_autoscaling_group[0].arn
@@ -15,11 +15,11 @@ resource "aws_ecs_capacity_provider" "cas" {
       target_capacity           = var.target_capacity
     }
   }
-   
+
 }
 
 resource "aws_ecs_cluster_capacity_providers" "cas" {
-  count = var.launch_type == "EC2" ? 1 : 0
+  count              = var.launch_type == "EC2" ? 1 : 0
   cluster_name       = aws_ecs_cluster.default.name
   capacity_providers = [aws_ecs_capacity_provider.cas[0].name]
 

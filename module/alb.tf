@@ -1,25 +1,25 @@
 # Application Load Balancer in public subnets with HTTP default listener that redirects traffic to HTTPS
 
 resource "aws_alb" "alb" {
-  name            = "${var.namespace}-ALB-${var.environment}"
-  security_groups = [aws_security_group.alb.id]
-  subnets         = aws_subnet.public.*.id
+  name                             = "${var.namespace}-ALB-${var.environment}"
+  security_groups                  = [aws_security_group.alb.id]
+  subnets                          = var.public_subnet_ids
   enable_cross_zone_load_balancing = var.enable_cross_zone_load_balancing
-   
+
 }
 
 resource "aws_lb_listener" "alb_http" {
-    load_balancer_arn = aws_alb.alb.arn
-    port              = "80"
-    protocol          = "HTTP"
-    default_action {
+  load_balancer_arn = aws_alb.alb.arn
+  port              = "80"
+  protocol          = "HTTP"
+  default_action {
     type = "redirect"
     redirect {
-        port        = "443"
-        protocol    = "HTTPS"
-        status_code = "HTTP_301"
-        }
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
     }
+  }
 }
 
 
@@ -42,7 +42,7 @@ resource "aws_alb_listener" "alb_default_listener_https" {
       status_code  = "403"
     }
   }
-   
+
 
   # depends_on = [aws_acm_certificate.alb_certificate]
 }
@@ -52,7 +52,7 @@ resource "aws_alb_listener" "alb_default_listener_https" {
 
 resource "aws_alb_listener_rule" "ec2_https_listener_rule" {
   # count = var.launch_type == "EC2" ? 1 : 0
-  for_each = var.containers
+  for_each     = var.containers
   listener_arn = aws_alb_listener.alb_default_listener_https.arn
 
   action {
@@ -65,7 +65,7 @@ resource "aws_alb_listener_rule" "ec2_https_listener_rule" {
       values = each.value.custom_origin_host_header
     }
   }
-   
+
 }
 
 

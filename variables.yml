@@ -7,8 +7,20 @@ environment: "dev"
 region: "ap-southeast-1"
 
 # Network variables
-vpc_cidr_block: "10.1.0.0/16"
-az_count: 2
+vpc_cidr_block: "10.0.0.0/16"
+
+azs :
+  - "ap-southeast-1a"
+  - "ap-southeast-1b"
+  - "ap-southeast-1c"
+private_subnets : 
+  - "10.0.1.0/24"
+  - "10.0.2.0/24"
+  - "10.0.3.0/24"
+public_subnets : 
+  - "10.0.101.0/24"
+  - "10.0.102.0/24"
+  - "10.0.103.0/24"
 
 # EC2 Computing variables
 instance_type: "t2.medium"
@@ -29,11 +41,11 @@ containers:
     healthcheck_endpoint: "/"
     health_check_enabled : true
     envs: 
-      - key : "ENV_NAME"
+      - name : "ENV_NAME"
         value : "Test-nginx"
     secrets:
       - name : "ENV_SEC"
-        valueFrom : "arn_env_config"
+        valueFrom : "arn:aws:secretsmanager:ap-southeast-1:711387124065:secret:NGINX_SVC_SECRETS_-d8sWH1"
     tags:
       - name: 
         key:
@@ -53,12 +65,12 @@ containers:
     healthcheck_endpoint: "/" 
     health_check_enabled : true
     envs:
-      - key : "ENV_NAME"
+      - name : "ENV_NAME"
         value : "Test-apache"
 
     secrets: 
       - name : "DB_PASSWORD"
-        valueFrom : "arn_DB_PASSORD"
+        valueFrom : "arn:aws:secretsmanager:ap-southeast-1:711387124065:secret:APACHE_SVC_SECRETS_-taI3x2"
 
     tags:
       - name: 
@@ -90,3 +102,7 @@ enable_cross_zone_load_balancing : true
 
 tags: 
   Terraform : "true"
+
+
+
+

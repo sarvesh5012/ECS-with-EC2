@@ -6,21 +6,6 @@ variable "namespace" {
   type        = string
 }
 
-# variable "domain_name" {
-#   description = "Domain name of the service (like service.example.com)"
-#   type        = string
-# }
-
-# variable "service_name" {
-#   description = "A Docker image-compatible name for the service"
-#   type        = string
-# }
-
-# variable "scenario" {
-#   description = "Scenario name for tags"
-#   default     = "scenario-ecs-ec2"
-#   type        = string
-# }
 
 variable "environment" {
   description = "Environment for deployment (like dev or staging)"
@@ -30,15 +15,6 @@ variable "environment" {
 
 # AWS credentials
 
-# variable "aws_access_key_id" {
-#   description = "AWS console access key"
-#   type        = string
-# }
-
-# variable "aws_secret_access_key" {
-#   description = "AWS console secret access key"
-#   type        = string
-# }
 
 variable "region" {
   description = "AWS region"
@@ -55,18 +31,38 @@ variable "vpc_cidr_block" {
   type        = string
 }
 
-variable "az_count" {
-  description = "Describes how many availability zones are used"
-  default     = 2
-  type        = number
+
+variable "private_subnet_ids" {
+  description = "Get the Private subnet IDs"
+  type        = list(string)
+}
+
+variable "public_subnet_ids" {
+  description = "Get the Public subnet IDs"
+  type        = list(string)
+}
+
+variable "azs" {
+  description = "Provide Availibility zones in list"
+  type        = list(string)
+}
+
+variable "public_subnets" {
+  description = "Provide Public subnets CIDR in list"
+  type        = list(string)
+}
+
+variable "private_subnets" {
+  description = "Provide Private subnets CIDR list"
+  type        = list(string)
+}
+
+variable "vpc_id" {
+  description = "VPC ID"
 }
 
 # EC2 Computing variables
 
-# variable "public_ec2_key" {
-#   description = "Public key for SSH access to EC2 instances"
-#   type        = string
-# }
 
 variable "instance_type" {
   description = "Instance type for EC2"
@@ -74,12 +70,7 @@ variable "instance_type" {
   type        = string
 }
 
-# ECS variables
 
-# variable "ecs_task_desired_count" {
-#   description = "How many ECS tasks should run in parallel"
-#   type        = number
-# }
 
 variable "ecs_task_min_count" {
   description = "How many ECS tasks should minimally run in parallel"
@@ -90,7 +81,7 @@ variable "ecs_task_min_count" {
 variable "ecs_task_max_count" {
   description = "How many ECS tasks should maximally run in parallel"
   #default     = 10
-  type        = number
+  type = number
 }
 
 variable "ecs_task_deployment_minimum_healthy_percent" {
@@ -105,17 +96,6 @@ variable "ecs_task_deployment_maximum_percent" {
   type        = number
 }
 
-# variable "cpu_target_tracking_desired_value" {
-#   description = "Target tracking for CPU usage in %"
-#   default     = 70
-#   type        = number
-# }
-
-# variable "memory_target_tracking_desired_value" {
-#   description = "Target tracking for memory usage in %"
-#   default     = 80
-#   type        = number
-# }
 
 variable "maximum_scaling_step_size" {
   description = "Maximum amount of EC2 instances that should be added on scale-out"
@@ -135,23 +115,6 @@ variable "target_capacity" {
   type        = number
 }
 
-# variable "container_port" {
-#   description = "Port of the container"
-#   type        = number
-#   default     = 3000
-# }
-
-# variable "cpu_units" {
-#   description = "Amount of CPU units for a single ECS task"
-#   default     = 100
-#   type        = number
-# }
-
-# variable "memory" {
-#   description = "Amount of memory in MB for a single ECS task"
-#   default     = 256
-#   type        = number
-# }
 
 # Cloudwatch
 
@@ -161,18 +124,6 @@ variable "retention_in_days" {
   type        = number
 }
 
-# ECR
-
-# variable "ecr_force_delete" {
-#   description = "Forces deletion of Docker images before resource is destroyed"
-#   default     = true
-#   type        = bool
-# }
-
-# variable "image_uri" {
-#   description = "nginx"
-#   type        = string
-# }
 
 # Autoscaling Group
 
@@ -182,11 +133,11 @@ variable "autoscaling_max_size" {
   type        = number
 }
 
-variable "desired_capacity"  {
+variable "desired_capacity" {
   description = "Provide desired capacity count"
   default     = 2
   type        = number
-}    
+}
 
 variable "autoscaling_min_size" {
   description = "Min size of the autoscaling group"
@@ -196,18 +147,6 @@ variable "autoscaling_min_size" {
 
 # ALB
 
-# variable "custom_origin_host_header" {
-#   description = "Custom header to ensure communication only through CloudFront"
-#   default     = "dev"
-#   type        = string
-# }
-
-# variable "healthcheck_endpoint" {
-#   description = "Endpoint for ALB healthcheck"
-#   type        = string
-#   default     = "/"
-# }
-
 variable "healthcheck_matcher" {
   description = "HTTP status code matcher for healthcheck"
   type        = string
@@ -216,19 +155,19 @@ variable "healthcheck_matcher" {
 
 variable "enable_cross_zone_load_balancing" {
   description = "Used for the multi-az deployment"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "aws_acm_certificate_arn" {
   description = "Provide aws acm certificate"
-  type = string
+  type        = string
 
 }
 
 
 variable "launch_type" {
-  type = string
+  type    = string
   default = "fargate"
 }
 
@@ -237,6 +176,6 @@ variable "tags" {
 }
 
 variable "containers" {
-  type = map(any)
+  type    = map(any)
   default = {}
 }

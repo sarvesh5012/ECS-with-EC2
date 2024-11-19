@@ -9,7 +9,7 @@ resource "aws_appautoscaling_target" "ec2_ecs_target" {
   resource_id        = "service/${aws_ecs_cluster.default.name}/${each.key}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
-  depends_on = [aws_ecs_service.ec2_service]
+  depends_on         = [aws_ecs_service.ec2_service]
 }
 
 # Policy for CPU tracking
@@ -17,7 +17,7 @@ resource "aws_appautoscaling_target" "ec2_ecs_target" {
 
 resource "aws_appautoscaling_policy" "ec2_ecs_cpu_policy" {
   # count = var.launch_type == "EC2" ? 1 : 0
-  for_each = var.containers
+  for_each           = var.containers
   name               = "${var.namespace}_CPUTargetTrackingScaling_${var.environment}"
   policy_type        = "TargetTrackingScaling"
   resource_id        = aws_appautoscaling_target.ec2_ecs_target["${each.key}"].resource_id
@@ -37,7 +37,7 @@ resource "aws_appautoscaling_policy" "ec2_ecs_cpu_policy" {
 
 resource "aws_appautoscaling_policy" "ec2_ecs_targetecs_memory_policy" {
   # count = var.launch_type == "EC2" ? 1 : 0
-  for_each = var.containers
+  for_each           = var.containers
   name               = "${var.namespace}_MemoryTargetTrackingScaling_${var.environment}"
   policy_type        = "TargetTrackingScaling"
   resource_id        = aws_appautoscaling_target.ec2_ecs_target["${each.key}"].resource_id

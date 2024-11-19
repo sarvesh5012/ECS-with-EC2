@@ -2,7 +2,7 @@
 
 provider "aws" {
   region = local.yaml_vars["region"]
-  
+
   # profile = "dev-forte"
   default_tags {
     tags = {

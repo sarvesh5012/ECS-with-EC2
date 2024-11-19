@@ -1,17 +1,17 @@
 # Creates an ASG linked with our main VPC
 
 resource "aws_autoscaling_group" "ecs_autoscaling_group" {
-  count = var.launch_type == "EC2" ? 1 : 0
+  count                 = var.launch_type == "EC2" ? 1 : 0
   name                  = "${var.namespace}_ASG_${var.environment}"
   max_size              = var.autoscaling_max_size
   min_size              = var.autoscaling_min_size
   desired_capacity      = var.desired_capacity
-  vpc_zone_identifier   = aws_subnet.private.*.id
+  vpc_zone_identifier   = var.private_subnet_ids
   health_check_type     = "EC2"
   protect_from_scale_in = false
-  
+
   health_check_grace_period = 120
-  default_cooldown = 120
+  default_cooldown          = 120
 
   enabled_metrics = [
     "GroupMinSize",
