@@ -1,6 +1,6 @@
 # Define individual local variables to hold values for easy reference
 locals {
-  config = yamldecode(file("variable-seperate.yml"))
+  config = yamldecode(file("variables.yml"))
 
   namespace         = local.config["namespace"]
   environment       = local.config["environment"]
