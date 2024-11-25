@@ -33,30 +33,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-1  # Replace with your AWS region
 
-      # Step 4: Remove specific Terraform files to ignore them
-      # - name: Remove Ignored Files
-      #   run: |
-      #     rm -f module/autoscaling_group.tf
-      #     rm -f module/capacity_providers.tf
-      #     rm -f module/launch_template.tf
-      #     rm -f module/ecs_service.tf
-      #     rm -f module/ecs_task_definition.tf
-      #     rm -f module/user_data.sh
-      #     rm -f module/target_group_instance.tf
+      
 
-      # Step 5: Initialize Terraform
+      # Step 4: Initialize Terraform
       # - name: Terraform Init
       #   run: terraform init
 
-      # Step 6: Plan Terraform changes
+      # Step 5: Plan Terraform changes
       # - name: Terraform Plan
       #   run: terraform plan
 
-      # Step 7: Apply Terraform changes (requires manual approval for safety)
-      # - name: Terraform plan
-      # #   
-      #   # run: terraform destroy -auto-approve
-      #   run: terraform plan
+      # Step 6: Apply Terraform changes (requires manual approval for safety)
 
       # - name: Terraform apply
       #   run: terraform apply -auto-approve    

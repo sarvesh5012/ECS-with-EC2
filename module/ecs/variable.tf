@@ -13,14 +13,7 @@ variable "environment" {
   type        = string
 }
 
-# AWS credentials
 
-
-variable "region" {
-  description = "AWS region"
-  default     = "eu-central-1"
-  type        = string
-}
 
 # Network variables
 
@@ -42,24 +35,6 @@ variable "public_subnet_ids" {
   type        = list(string)
 }
 
-variable "azs" {
-  description = "Provide Availibility zones in list"
-  type        = list(string)
-}
-
-variable "public_subnets" {
-  description = "Provide Public subnets CIDR in list"
-  type        = list(string)
-}
-
-variable "private_subnets" {
-  description = "Provide Private subnets CIDR list"
-  type        = list(string)
-}
-
-variable "vpc_id" {
-  description = "VPC ID"
-}
 
 # EC2 Computing variables
 
@@ -72,17 +47,6 @@ variable "instance_type" {
 
 
 
-variable "ecs_task_min_count" {
-  description = "How many ECS tasks should minimally run in parallel"
-  default     = 2
-  type        = number
-}
-
-variable "ecs_task_max_count" {
-  description = "How many ECS tasks should maximally run in parallel"
-  #default     = 10
-  type = number
-}
 
 variable "ecs_task_deployment_minimum_healthy_percent" {
   description = "How many percent of a service must be running to still execute a safe deployment"
@@ -109,7 +73,7 @@ variable "minimum_scaling_step_size" {
   type        = number
 }
 
-variable "target_capacity" {
+variable "asg_ec2_target_capacity" {
   description = "Amount of resources of container instances that should be used for task placement in %"
   default     = 100
   type        = number
@@ -118,7 +82,7 @@ variable "target_capacity" {
 
 # Cloudwatch
 
-variable "retention_in_days" {
+variable "cw_logs_retention_in_days" {
   description = "Retention period for Cloudwatch logs"
   default     = 7
   type        = number
@@ -127,19 +91,19 @@ variable "retention_in_days" {
 
 # Autoscaling Group
 
-variable "autoscaling_max_size" {
+variable "ec2_autoscaling_max_size" {
   description = "Max size of the autoscaling group"
   default     = 6
   type        = number
 }
 
-variable "desired_capacity" {
+variable "ec2_desired_capacity" {
   description = "Provide desired capacity count"
   default     = 2
   type        = number
 }
 
-variable "autoscaling_min_size" {
+variable "ec2_autoscaling_min_size" {
   description = "Min size of the autoscaling group"
   default     = 2
   type        = number
@@ -147,11 +111,6 @@ variable "autoscaling_min_size" {
 
 # ALB
 
-variable "healthcheck_matcher" {
-  description = "HTTP status code matcher for healthcheck"
-  type        = string
-  default     = "200"
-}
 
 variable "enable_cross_zone_load_balancing" {
   description = "Used for the multi-az deployment"
@@ -171,9 +130,9 @@ variable "launch_type" {
   default = "fargate"
 }
 
-variable "tags" {
-  type = map(string)
-}
+# variable "common_tags" {
+#   type = map(string)
+# }
 
 variable "containers" {
   type    = map(any)

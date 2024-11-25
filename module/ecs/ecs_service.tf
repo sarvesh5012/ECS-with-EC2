@@ -6,7 +6,7 @@ resource "aws_ecs_service" "ec2_service" {
   iam_role                           = var.launch_type == "EC2" ? aws_iam_role.ecs_service_role[each.key].arn : null
   cluster                            = aws_ecs_cluster.default.id
   task_definition                    = aws_ecs_task_definition.fargate_default["${each.key}"].arn # Indexed for EC2
-  desired_count                      = each.value.ecs_task_desired_count
+  desired_count                      = each.value.desired_task_count
   deployment_minimum_healthy_percent = var.ecs_task_deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.ecs_task_deployment_maximum_percent
   launch_type                        = var.launch_type == "FARGATE" ? "FARGATE" : null
@@ -33,7 +33,7 @@ resource "aws_ecs_service" "ec2_service" {
     for_each = var.launch_type == "FARGATE" ? [1] : []
     content {
       security_groups  = [aws_security_group.ecs_container_instance[each.key].id]
-      subnets          = var.private_subnet_ids[*].id
+      subnets          = var.private_subnet_ids
       assign_public_ip = false
     }
   }
@@ -51,10 +51,4 @@ resource "aws_ecs_service" "ec2_service" {
 
 
 
-#########Outputs###########
-
-# Output for EC2 ECS Service
-# output "ecs_service_name" {
-#   value = var.launch_type == "EC2" ? aws_ecs_service.service.name : null
-# }
 

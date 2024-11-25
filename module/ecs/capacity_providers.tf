@@ -12,7 +12,7 @@ resource "aws_ecs_capacity_provider" "cas" {
       maximum_scaling_step_size = var.maximum_scaling_step_size
       minimum_scaling_step_size = var.minimum_scaling_step_size
       status                    = "ENABLED"
-      target_capacity           = var.target_capacity
+      target_capacity           = var.asg_ec2_target_capacity
     }
   }
 

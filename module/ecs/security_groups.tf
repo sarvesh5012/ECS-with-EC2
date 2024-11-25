@@ -5,7 +5,7 @@
 resource "aws_security_group" "alb" {
   name        = "${var.namespace}_ALB_SecurityGroup_${var.environment}"
   description = "Security group for ALB"
-  vpc_id      = var.vpc_id
+  vpc_id      = data.aws_subnet.public_subnet_id.vpc_id
 
   ingress {
     description = "Allow all traffic"
@@ -23,9 +23,9 @@ resource "aws_security_group" "alb" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = merge({
-    Name = "${var.namespace}_ALB_SecurityGroup_${var.environment}"
-  }, var.tags)
+  # tags = merge({
+  #   Name = "${var.namespace}_ALB_SecurityGroup_${var.environment}"
+  # }, var.common_tags)
 }
 
 
@@ -39,7 +39,7 @@ resource "aws_security_group" "ecs_container_instance" {
   depends_on  = [aws_security_group.alb]
   name        = "${each.key}_sg_${var.environment}"
   description = "Security group for ECS task running on Fargate"
-  vpc_id      = var.vpc_id
+  vpc_id      = data.aws_subnet.public_subnet_id.vpc_id
 
   ingress {
     description = "Allow ingress traffic from ALB on HTTP only"
@@ -60,8 +60,8 @@ resource "aws_security_group" "ecs_container_instance" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = merge({
-    Name = "${var.namespace}_ECS_Task_SecurityGroup_${var.environment}"
-  }, var.tags)
+  # tags = merge({
+  #   Name = "${var.namespace}_ECS_Task_SecurityGroup_${var.environment}"
+  # }, var.common_tags)
 
 }

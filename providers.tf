@@ -1,15 +1,11 @@
 # AWS provider setup
 
 provider "aws" {
-  region = local.yaml_vars["region"]
+  region = local.region
 
   # profile = "dev-forte"
   default_tags {
-    tags = {
-      Environment = "dev"
-      Team        = "engineering"
-      Project     = "my-project"
-    }
+    tags = local.common_tags
   }
 }
 

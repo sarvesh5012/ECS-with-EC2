@@ -3,9 +3,9 @@
 resource "aws_ecs_cluster" "default" {
   name = "${var.namespace}_ECSCluster_${var.environment}"
 
-  tags = merge({
-    Name = "${var.namespace}_ECSCluster_${var.environment}"
-  }, var.tags)
+  # tags = merge({
+  #   Name = "${var.namespace}_ECSCluster_${var.environment}"
+  # }, var.common_tags)
 }
 
 output "ecs_cluster_name" {

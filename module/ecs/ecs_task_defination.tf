@@ -46,7 +46,7 @@ resource "aws_ecs_task_definition" "fargate_default" {
         logDriver = "awslogs"
         options = {
           "awslogs-group"         = aws_cloudwatch_log_group.log_group["${each.key}"].name
-          "awslogs-region"        = var.region
+          "awslogs-region"        = data.aws_region.current.name
           "awslogs-stream-prefix" = "${each.key}-log-stream-${var.environment}"
         }
       }

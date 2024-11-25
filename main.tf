@@ -1,87 +1,16 @@
 # # Module for ECS Infrastructure
 # main.tf
 
-locals {
-  yaml_vars = yamldecode(file("variables.yml"))
-}
-
-# Define individual local variables to hold values for easy reference
-locals {
-  namespace = local.yaml_vars["namespace"]
-
-  environment                                 = local.yaml_vars["environment"]
-  region                                      = local.yaml_vars["region"]
-  vpc_cidr_block                              = local.yaml_vars["vpc_cidr_block"]
-  azs                                         = local.yaml_vars["azs"]
-  public_subnets                              = local.yaml_vars["public_subnets"]
-  private_subnets                             = local.yaml_vars["private_subnets"]
-  instance_type                               = local.yaml_vars["instance_type"]
-  containers                                  = local.yaml_vars["containers"]
-  ecs_task_min_count                          = local.yaml_vars["ecs_task_min_count"]
-  ecs_task_max_count                          = local.yaml_vars["ecs_task_max_count"]
-  ecs_task_deployment_minimum_healthy_percent = local.yaml_vars["ecs_task_deployment_minimum_healthy_percent"]
-  ecs_task_deployment_maximum_percent         = local.yaml_vars["ecs_task_deployment_maximum_percent"]
-
-  maximum_scaling_step_size = local.yaml_vars["maximum_scaling_step_size"]
-  minimum_scaling_step_size = local.yaml_vars["minimum_scaling_step_size"]
-  target_capacity           = local.yaml_vars["target_capacity"]
-  retention_in_days         = local.yaml_vars["retention_in_days"]
-  autoscaling_max_size      = local.yaml_vars["autoscaling_max_size"]
-  autoscaling_min_size      = local.yaml_vars["autoscaling_min_size"]
-  desired_capacity          = local.yaml_vars["desired_capacity"]
-
-  healthcheck_matcher              = local.yaml_vars["healthcheck_matcher"]
-  aws_acm_certificate_arn          = local.yaml_vars["aws_acm_certificate_arn"]
-  launch_type                      = local.yaml_vars["launch_type"]
-  enable_cross_zone_load_balancing = local.yaml_vars["enable_cross_zone_load_balancing"]
-  tags                             = local.yaml_vars["tags"]
-}
-
-
-
-module "ecs_infrastructure" {
-  source = "./module"
-
-  namespace = local.namespace
-
-  environment                                 = local.environment
-  region                                      = local.region
-  vpc_id                                      = module.vpc.vpc_id
-  public_subnet_ids                           = module.vpc.public_subnets
-  private_subnet_ids                          = module.vpc.private_subnets
-  azs                                         = local.azs
-  private_subnets                             = local.private_subnets
-  public_subnets                              = local.public_subnets
-  instance_type                               = local.instance_type
-  containers                                  = local.containers
-  ecs_task_min_count                          = local.ecs_task_min_count
-  ecs_task_max_count                          = local.ecs_task_max_count
-  ecs_task_deployment_minimum_healthy_percent = local.ecs_task_deployment_minimum_healthy_percent
-  ecs_task_deployment_maximum_percent         = local.ecs_task_deployment_maximum_percent
-
-  maximum_scaling_step_size = local.maximum_scaling_step_size
-  minimum_scaling_step_size = local.minimum_scaling_step_size
-  target_capacity           = local.target_capacity
-  retention_in_days         = local.retention_in_days
-  autoscaling_max_size      = local.autoscaling_max_size
-  autoscaling_min_size      = local.autoscaling_min_size
-  desired_capacity          = local.desired_capacity
-
-  healthcheck_matcher              = local.healthcheck_matcher
-  aws_acm_certificate_arn          = local.aws_acm_certificate_arn
-  launch_type                      = local.launch_type
-  enable_cross_zone_load_balancing = local.enable_cross_zone_load_balancing
-  tags                             = local.tags
-}
-
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "5.16.0"
+  name    = "${local.namespace}_VPC_${local.environment}"
+  cidr    = local.vpc_cidr_block
 
-  cidr = local.vpc_cidr_block
-
-  azs             = local.azs
-  private_subnets = local.private_subnets
-  public_subnets  = local.public_subnets
+  azs              = local.azs
+  private_subnets  = local.private_subnets
+  public_subnets   = local.public_subnets
+  database_subnets = local.database_subnets
 
 
   enable_nat_gateway = true
@@ -90,5 +19,68 @@ module "vpc" {
 
   tags = merge({
     Name = "${local.namespace}_VPC_${local.environment}"
-  }, local.tags)
+  }, local.common_tags)
+}
+
+module "ecs_infrastructure" {
+  source                                      = "./module/ecs"
+  namespace                                   = local.namespace
+  environment                                 = local.environment
+  public_subnet_ids                           = module.vpc.public_subnets
+  private_subnet_ids                          = module.vpc.private_subnets
+  instance_type                               = local.instance_type
+  launch_type                                 = local.launch_type #If instance_type is there then the launch_tyep wiill be ec2
+  containers                                  = local.containers
+  ecs_task_deployment_minimum_healthy_percent = local.ecs_task_deployment_minimum_healthy_percent
+  ecs_task_deployment_maximum_percent         = local.ecs_task_deployment_maximum_percent
+  maximum_scaling_step_size                   = local.maximum_scaling_step_size
+  minimum_scaling_step_size                   = local.minimum_scaling_step_size
+  asg_ec2_target_capacity                     = local.asg_ec2_target_capacity
+  cw_logs_retention_in_days                   = local.cw_logs_retention_in_days
+  ec2_autoscaling_max_size                    = local.ec2_autoscaling_max_size
+  ec2_autoscaling_min_size                    = local.ec2_autoscaling_min_size
+  ec2_desired_capacity                        = local.ec2_desired_capacity
+  aws_acm_certificate_arn                     = local.aws_acm_certificate_arn
+  enable_cross_zone_load_balancing            = local.enable_cross_zone_load_balancing
+
+}
+
+module "rds" {
+  # source = "terraform-aws-modules/rds/aws"
+  source = "./module/rds"
+
+  identifier                          = local.identifier
+  engine                              = local.engine
+  engine_version                      = local.engine_version
+  instance_class                      = local.instance_class
+  allocated_storage                   = local.allocated_storage
+  db_name                             = local.db_name
+  username                            = local.username
+  port                                = local.port
+  iam_database_authentication_enabled = local.iam_database_authentication_enabled
+  create_monitoring_role              = local.create_monitoring_role
+  create_db_subnet_group              = local.create_db_subnet_group
+  family                              = local.family
+  major_engine_version                = local.major_engine_version
+  deletion_protection                 = local.deletion_protection
+  database_subnets_ids                = module.vpc.database_subnets
+}
+
+module "backup_vault" {
+  source                        = "./module/rds/backup_vault"
+  backup_vault_name             = local.backup_vault_name
+  backup_service_selection_name = local.backup_service_selection_name
+  bp_name                       = local.bp_name
+  bp_rule_schedule              = local.bp_rule_schedule
+  delete_after                  = local.delete_after
+  schedule_expression_timezone  = local.schedule_expression_timezone
+  start_window                  = local.start_window
+  completion_window             = local.completion_window
+  resources_arn                 = module.rds.db_instance_arn
+  bp_rule_name                  = local.bp_rule_name
+}
+
+module "app_deployment_cicd" {
+  source            = "./module/cicd_aws_role"
+  oidc_provider_url = local.oidc_provider_url
 }

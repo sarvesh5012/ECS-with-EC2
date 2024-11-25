@@ -21,11 +21,11 @@ resource "aws_launch_template" "ecs_launch_template" {
     enabled = true
   }
 
-  tags = var.tags
+  # tags = var.common_tags
 }
 
 data "template_file" "user_data" {
-  template = file("module/user_data.sh")
+  template = file("module/ecs/user_data.sh")
 
   vars = {
     ecs_cluster_name = aws_ecs_cluster.default.name

@@ -1,0 +1,147 @@
+# Service variables
+namespace: "virtue"
+
+environment: "dev"
+
+# AWS credentials
+region: "ap-southeast-1"
+
+# CICD Role
+oidc_provider_url : "https://token.actions.githubusercontent.com"
+
+# Network variables
+vpc:
+  vpc_cidr_block: "10.0.0.0/16"
+
+  azs :
+    - "ap-southeast-1a"
+    - "ap-southeast-1b"
+    - "ap-southeast-1c"
+  private_subnets : 
+    - "10.0.1.0/24"
+    - "10.0.2.0/24"
+    - "10.0.3.0/24"
+  public_subnets : 
+    - "10.0.101.0/24"
+    - "10.0.102.0/24"
+    - "10.0.103.0/24"
+
+  database_subnets :
+  - "10.0.4.0/24" 
+  - "10.0.5.0/24" 
+  - "10.0.6.0/24"
+
+# EC2 Computing variables
+app_deployment:
+  instance_type: "t2.medium"    # Set empty if launch_type = "FARGATE"
+  launch_type: "EC2" # or "FARGATE"
+  
+
+  # ECS variables
+  containers:
+    nginx:
+      desired_task_count: 1
+      image_uri: "nginx"
+      container_port: 80
+      cpu_units: 768
+      memory: 768
+      task_min_count: 1
+      task_max_count: 10
+      cpu_target_tracking_desired_value: 80
+      memory_target_tracking_desired_value: 80
+      custom_origin_host_header: 
+        - "dev.virtues.agency"
+        - "dev2.virtues.agency"
+      healthcheck_endpoint: "/"
+      health_check_enabled : true
+      envs: 
+        - name : "ENV_NAME"
+          value : "Test-nginx"
+      secrets:
+        - name : "ENV_SEC"
+          valueFrom : "arn:aws:secretsmanager:ap-southeast-1:711387124065:secret:DB_ALL_CONFIG-5Pc5ZV"
+      tags:
+        - name: 
+          key:
+
+    apache:
+      desired_task_count: 1
+      image_uri: "httpd"
+      container_port: 80
+      cpu_units: 1024
+      memory: 1024
+      task_min_count: 1
+      task_max_count: 10
+      cpu_target_tracking_desired_value: 80 #container target_value
+      memory_target_tracking_desired_value: 80 #container target_value
+      custom_origin_host_header: 
+        - "dev1.virtues.agency"
+      healthcheck_endpoint: "/" 
+      health_check_enabled : true
+      envs:
+        - name : "ENV_NAME"
+          value : "Test-apache"
+      secrets: 
+        - name : "DB_PASSWORD"
+          valueFrom : "arn:aws:secretsmanager:ap-southeast-1:711387124065:secret:DB_ALL_CONFIG-5Pc5ZV"
+      tags:
+        - name: 
+          key:
+
+  # Autoscaling Group
+  ec2_autoscaling_max_size: 6
+  ec2_autoscaling_min_size: 1
+  ec2_desired_capacity: 1
+  ecs_task_deployment_minimum_healthy_percent: 100
+  ecs_task_deployment_maximum_percent: 200
+  maximum_scaling_step_size: 1
+  minimum_scaling_step_size: 1
+  asg_ec2_target_capacity: 100 #ec2 autoscalling 
+
+  # Cloudwatch
+  cw_logs_retention_in_days: 7
+
+
+  # ALB
+  aws_acm_certificate_arn: "arn:aws:acm:ap-southeast-1:711387124065:certificate/50a1d91f-b79c-4565-8e4f-fd6e0cc8e7b2"
+  enable_cross_zone_load_balancing : true
+
+# RDS
+rds:
+  identifier                        : "demodb"
+  engine                            : "mysql"
+  engine_version                    : "8.0.35"
+  instance_class                    : "db.t3.micro"
+  allocated_storage                 : 10
+  db_name                           : "demodb"
+  username                          : "user"
+  port                              : "3306"
+  iam_database_authentication_enabled : true
+  create_monitoring_role            : true
+  create_db_subnet_group            : true
+  family                            : "mysql8.0"
+  major_engine_version              : "8.0"
+  deletion_protection               : false
+
+# Backup Vault
+backup_vault_svc:
+  backup_vault_name             : "rds_backup"
+  backup_service_selection_name : "mysql_db"
+  bp_name                       : "rds_backup_plan"
+  bp_rule_schedule              : "cron(30 17 * * ? *)"
+  delete_after                  : 7
+  schedule_expression_timezone  : "Etc/UTC"
+  start_window                  : 60
+  completion_window             : 180
+  bp_rule_name                  : "rds_rule"
+ 
+
+common_tags: 
+  Terraform   : "true"
+  Environment : "dev"
+  Team        : "engineering"
+  Project     : "my-project"
+
+
+
+
