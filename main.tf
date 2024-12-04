@@ -76,7 +76,7 @@ module "backup_vault" {
   schedule_expression_timezone  = local.schedule_expression_timezone
   start_window                  = local.start_window
   completion_window             = local.completion_window
-  resources_arn                 = module.rds.db_instance_arn
+  resources_arn                 = [module.rds.db_instance_arn]
   bp_rule_name                  = local.bp_rule_name
 }
 

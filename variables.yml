@@ -33,8 +33,8 @@ vpc:
 
 # EC2 Computing variables
 app_deployment:
-  instance_type: "t2.medium"    # Set empty if launch_type = "FARGATE"
-  launch_type: "EC2" # or "FARGATE"
+  instance_type: ""    # Set empty if launch_type = "FARGATE"
+  launch_type: "FARGATE"
   
 
   # ECS variables
@@ -43,8 +43,8 @@ app_deployment:
       desired_task_count: 1
       image_uri: "nginx"
       container_port: 80
-      cpu_units: 768
-      memory: 768
+      cpu_units: 512
+      memory: 1024
       task_min_count: 1
       task_max_count: 10
       cpu_target_tracking_desired_value: 80
@@ -68,7 +68,7 @@ app_deployment:
       desired_task_count: 1
       image_uri: "httpd"
       container_port: 80
-      cpu_units: 1024
+      cpu_units: 512
       memory: 1024
       task_min_count: 1
       task_max_count: 10
